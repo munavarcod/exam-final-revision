@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Pflege Revision – Saarland 2026</title>
+<style>
+:root{
+  --bg:#fbfbf9; --fg:#2a2a2a; --muted:#777; --line:#e6e4de;
+  --accent:#2f6f4f; --accent-soft:#eaf2ed; --card:#fff; --hi:#fff8e6; --hi-line:#e8d9a8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--fg); line-height:1.65;
+  font-size:17px; -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:760px; margin:0 auto; padding:32px 22px 80px}
+header.top{text-align:center; padding:24px 0 8px}
+header.top h1{font-size:30px; font-weight:800; letter-spacing:-.3px; color:var(--accent)}
+header.top p{color:var(--muted); font-size:15px; margin-top:6px}
+.rule{height:1px;background:var(--line);margin:26px 0}
+
+/* TOC */
+nav.toc{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:20px 0}
+nav.toc h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;font-weight:700}
+nav.toc ol{list-style:none;counter-reset:toc}
+nav.toc li{counter-increment:toc; margin:2px 0}
+nav.toc a{
+  display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--fg);
+  padding:7px 8px; border-radius:8px; font-size:16px;
+}
+nav.toc a:hover{background:var(--accent-soft); color:var(--accent)}
+nav.toc a::before{content:counter(toc)"."; color:var(--accent); font-weight:700; min-width:24px; font-variant-numeric:tabular-nums}
+
+/* Sections */
+section{margin:38px 0; scroll-margin-top:16px}
+section h2.sec{
+  font-size:23px; font-weight:800; color:var(--accent); letter-spacing:-.2px;
+  padding-bottom:8px; border-bottom:2px solid var(--accent-soft); margin-bottom:16px;
+  display:flex; align-items:baseline; gap:10px;
+}
+section h2.sec .n{
+  font-size:15px; background:var(--accent); color:#fff; border-radius:7px;
+  padding:2px 9px; font-weight:700; flex-shrink:0;
+}
+h3.sub{font-size:18px;font-weight:700;margin:20px 0 8px;color:#1c4a36}
+h4.subsub{font-size:16px;font-weight:700;margin:14px 0 4px;color:#333}
+p{margin:8px 0}
+.lead{color:#444}
+ul,ol.steps{margin:8px 0 8px 4px;padding-left:22px}
+li{margin:4px 0}
+ol.steps{counter-reset:st;list-style:none;padding-left:0}
+ol.steps>li{counter-increment:st;position:relative;padding-left:34px;margin:7px 0}
+ol.steps>li::before{
+  content:counter(st);position:absolute;left:0;top:1px;
+  width:23px;height:23px;background:var(--accent-soft);color:var(--accent);
+  border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.def{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;color:#3a3a3a}
+.hi{background:var(--hi);border:1px solid var(--hi-line);border-radius:10px;padding:11px 15px;margin:12px 0;font-size:15.5px}
+.hi b{color:#8a6d1a}
+strong{font-weight:700;color:#1c1c1c}
+.tag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:13px;
+  font-weight:600;padding:2px 9px;border-radius:6px;margin:2px 4px 2px 0}
+.back{display:inline-block;margin-top:14px;font-size:13px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:50px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* Print */
+@media print{
+  :root{--bg:#fff}
+  body{font-size:11.5pt;line-height:1.45}
+  .wrap{max-width:100%;padding:0}
+  nav.toc{break-after:page;border:1px solid #ccc}
+  section{break-inside:avoid-page;margin:18px 0}
+  section h2.sec{break-after:avoid}
+  h3.sub,h4.subsub{break-after:avoid}
+  .def,.hi{break-inside:avoid}
+  .back{display:none}
+  a{color:var(--fg);text-decoration:none}
+  header.top h1{color:#1c4a36}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<span id="top"></span>
+
+<header class="top">
+  <h1>📖 Pflege Revision</h1>
+  <p>Persönliche Lernzusammenfassung · Staatsexamen Pflegefachmann · Saarland 2026</p>
+</header>
+
+<nav class="toc">
+  <h2>Inhaltsverzeichnis</h2>
+  <ol>
+    <li><a href="#t1">Pflegeprozess</a></li>
+    <li><a href="#t2">ABEDL nach Krohwinkel</a></li>
+    <li><a href="#t3">SIS – Strukturierte Informationssammlung</a></li>
+    <li><a href="#t4">Pflegetheorien</a></li>
+    <li><a href="#t5">Assessments</a></li>
+    <li><a href="#t6">Dokumentation</a></li>
+    <li><a href="#t7">Prophylaxen</a></li>
+    <li><a href="#t8">Kommunikation</a></li>
+    <li><a href="#t9">Ethik</a></li>
+    <li><a href="#t10">Beratung</a></li>
+    <li><a href="#t11">Schulung</a></li>
+    <li><a href="#t12">Anleitung</a></li>
+    <li><a href="#t13">Trajekt-Modell (Corbin &amp; Strauss)</a></li>
+    <li><a href="#t14">Pharmakologie</a></li>
+    <li><a href="#t15">Mangelernährung</a></li>
+    <li><a href="#t16">Adipositas</a></li>
+    <li><a href="#t17">Palliativpflege</a></li>
+    <li><a href="#t18">Recht</a></li>
+    <li><a href="#t19">Gesundheitsförderung &amp; Prävention</a></li>
+    <li><a href="#t20">Pflegecharta</a></li>
+    <li><a href="#t21">EACH-Charta</a></li>
+    <li><a href="#t22">Interdisziplinäre Zusammenarbeit</a></li>
+    <li><a href="#t23">Delegation</a></li>
+    <li><a href="#t24">SBAR-Übergabe</a></li>
+    <li><a href="#t25">Expertenstandards</a></li>
+  </ol>
+</nav>
+
+<!-- 1 -->
+<section id="t1">
+  <h2 class="sec"><span class="n">1</span> Pflegeprozess</h2>
+  <p class="lead">Für eine zielgerechte, strukturierte Arbeitsweise. Er sichert eine planbare, individuelle und nachvollziehbare Pflege.</p>
+  <h3 class="sub">Die 6 Schritte</h3>
+  <ol class="steps">
+    <li><strong>Informationssammlung:</strong> Subjektive und objektive Informationen werden gesammelt. ABEDL und SIS als Werkzeug.</li>
+    <li><strong>Probleme und Ressourcen erkennen:</strong> Was kann der Patient noch, was kann der Patient nicht mehr? Aktuelle, potenzielle, allgemeine und individuelle Probleme. Körperliche, innerliche, räumliche, ökonomische, spirituelle und soziale Ressourcen.</li>
+    <li><strong>Pflegeziel festlegen:</strong> Ziel = Zustand des Patienten. SMART als Werkzeug.</li>
+    <li><strong>Maßnahmen planen:</strong> 6 W, immer begründen.</li>
+    <li><strong>Durchführung:</strong> Maßnahmen umsetzen, dokumentieren.</li>
+    <li><strong>Evaluation:</strong> Überprüfung der Ergebnisse des Pflegeprozesses, um Qualität und Wirksamkeit zu prüfen und kontinuierlich zu verbessern. Zielerreichung? Ursache? Anpassung?</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 2 -->
+<section id="t2">
+  <h2 class="sec"><span class="n">2</span> ABEDL nach Krohwinkel</h2>
+  <p class="lead">Aktivitäten, Beziehungen und existenzielle Erfahrungen des Lebens. Fördernde Prozesspflege bzw. aktivierende Pflege. Der Mensch wird ganzheitlich betrachtet.</p>
+  <ol class="steps">
+    <li>Kommunizieren</li>
+    <li>Sich bewegen</li>
+    <li>Vitale Funktionen aufrechterhalten</li>
+    <li>Sich pflegen</li>
+    <li>Essen und trinken</li>
+    <li>Ausscheiden</li>
+    <li>Ruhen und schlafen</li>
+    <li>Sich beschäftigen</li>
+    <li>Sich an- und auskleiden</li>
+    <li>Sich als Mann oder Frau fühlen</li>
+    <li>Leben in sozialen Beziehungen sichern können</li>
+    <li>Für eine sichere und fördernde Umgebung sorgen können</li>
+    <li>Mit existenziellen Erfahrungen des Lebens umgehen können</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 3 -->
+<section id="t3">
+  <h2 class="sec"><span class="n">3</span> SIS – Strukturierte Informationssammlung</h2>
+  <h3 class="sub">4 Felder</h3>
+  <ol class="steps">
+    <li><strong>Stammdaten</strong></li>
+    <li><strong>Eigeneinschätzung des Patienten</strong> (Zitat): „Was bewegt Sie gerade?"</li>
+    <li><strong>Fachliche Einschätzung der Pflegefachkraft</strong> – dokumentiert die objektiven Sachverhalte.</li>
+    <li><strong>Risikomatrix</strong></li>
+  </ol>
+  <h3 class="sub">Fachliche Einschätzung – 6 Themenfelder</h3>
+  <ol class="steps">
+    <li>Kognition und Kommunikation</li>
+    <li>Mobilität und Bewegung</li>
+    <li>Krankheitsbezogene Anforderungen</li>
+    <li>Selbstversorgung</li>
+    <li>Leben in sozialen Beziehungen</li>
+    <li>Wohnen / Häuslichkeit</li>
+  </ol>
+  <div class="hi"><b>Risikoeinschätzung:</b> Dekubitus, Sturz, Schmerz, Inkontinenz, Mangelernährung</div>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 4 -->
+<section id="t4">
+  <h2 class="sec"><span class="n">4</span> Pflegetheorien</h2>
+  <p class="lead"><strong>3 Modellkategorien:</strong> Bedürfnismodell, Interaktionsmodell, Ergebnismodell.</p>
+  <h3 class="sub">Henderson</h3>
+  <p>14 Grundbedürfnisse.</p>
+  <h3 class="sub">Orem (Selbstpflegedefizit-Theorie)</h3>
+  <p>Voll kompensatorisch · Teilkompensatorisch · Unterstützend-erzieherisch.</p>
+  <h3 class="sub">Peplau (psychodynamisches / interpersonales Beziehungsmodell)</h3>
+  <p>Orientierungsphase → Identifikationsphase → Nutzungsphase → Ablösungsphase.</p>
+  <h3 class="sub">RTL-Modell (Roper, Logan, Tierney)</h3>
+  <p>12 Lebensaktivitäten. Die Kernpunkte sind Lebensspanne und das Abhängigkeits-/Unabhängigkeitskontinuum.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 5 -->
+<section id="t5">
+  <h2 class="sec"><span class="n">5</span> Assessments</h2>
+
+  <h3 class="sub">a. Dekubitus</h3>
+  <p>Zur Früherkennung – wird bei Aufnahme und bei Zustandsänderungen durchgeführt.</p>
+  <p><strong>Braden:</strong> sensorisches Empfinden, Feuchtigkeit, Aktivität, Mobilität, Ernährung, Reibung und Scherkräfte. Ab ≤ 18 Risiko (hohes Risiko bei niedrigen Werten).</p>
+  <p><strong>Norton:</strong> körperlicher Zustand, geistiger Zustand, Aktivität, Mobilität, Inkontinenz.</p>
+
+  <h3 class="sub">b. Sturz</h3>
+  <p><strong>Morse Fall Scale</strong> – Grundlage für das Sturzmanagement: Sturzanamnese, Sekundärdiagnose, Gehhilfe, i.v.-Zugang, Gang-/Gleichgewichtsstörung, Kognition.</p>
+  <h4 class="subsub">Sturz-Sofortmaßnahmen</h4>
+  <ul>
+    <li>Ruhe bewahren</li>
+    <li>Patient nicht sofort aufheben</li>
+    <li>Vitalzeichenkontrolle</li>
+    <li>Verletzungen inspizieren und Schmerzen erfragen</li>
+    <li>Arzt informieren</li>
+    <li>Dokumentieren und Sturzprotokoll</li>
+    <li>Sturzassessment wiederholen</li>
+    <li>Maßnahmen anpassen</li>
+    <li>Angehörige informieren</li>
+  </ul>
+
+  <h3 class="sub">c. Barthel-Index</h3>
+  <p>Assessment für Selbständigkeit: essen, aufsetzen/umsetzen, waschen, duschen, Toilette benutzen, gehen auf Ebene, Treppensteigen, an-/ausziehen, Harnkontrolle, Stuhlkontrolle.</p>
+
+  <h3 class="sub">d. Schmerzassessment</h3>
+  <ul>
+    <li><strong>NRS 0–10:</strong> für kognitiv nicht eingeschränkte Patienten, die verbal kommunizieren können.</li>
+    <li><strong>VAS:</strong> 10-cm-Linie, auch für Patienten, die kognitiv nicht eingeschränkt sind, aber lieber visuell kommunizieren.</li>
+    <li><strong>BESD:</strong> für Demenzpatienten oder kognitiv eingeschränkte Patienten, die nicht verbal kommunizieren können.</li>
+    <li><strong>Wong-Baker Smiley-Skala:</strong> für Kinder ab 4 Jahren.</li>
+    <li><strong>KUSS-Skala:</strong> für Neugeborene bis 4 Jahre.</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 6 -->
+<section id="t6">
+  <h2 class="sec"><span class="n">6</span> Dokumentation</h2>
+  <ul>
+    <li>Rechtliche Absicherung</li>
+    <li>Qualitätssicherung</li>
+    <li>Beweismittel</li>
+    <li>Kontinuität der Pflege</li>
+    <li>Interdisziplinäre Zusammenarbeit</li>
+    <li>Kontinuierliche Verbesserung und Anpassung der Pflegeprozesse</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 7 -->
+<section id="t7">
+  <h2 class="sec"><span class="n">7</span> Prophylaxen</h2>
+
+  <h3 class="sub">Dekubitus</h3>
+  <div class="def">Lokale, begrenzte Hautschädigung der Haut oder des darunterliegenden Gewebes, die durch Druck und die dadurch entstehende Minderdurchblutung verursacht wird.</div>
+  <h4 class="subsub">4 Stadien</h4>
+  <ol class="steps">
+    <li>Nicht wegdrückbare Rötung</li>
+    <li>Blasenbildung</li>
+    <li>Tiefer Krater, sichtbares Unterhautgewebe</li>
+    <li>Sichtbare Knochen, Sehnen, Muskelgewebe</li>
+  </ol>
+  <h4 class="subsub">Maßnahmen</h4>
+  <ul>
+    <li>Lagerung und Druckentlastung</li>
+    <li>Ausreichende Flüssigkeitszufuhr</li>
+    <li>Hilfsmittel, Wechseldruckmatratze</li>
+    <li>Hautpflege, Hautinspektion</li>
+    <li>Eiweißzufuhr</li>
+    <li>Mobilisation, aktivierende Pflege</li>
+    <li>Patient und Angehörige informieren und beraten</li>
+  </ul>
+
+  <h3 class="sub">Sturzprophylaxe</h3>
+  <div class="def">Ein Ereignis, bei dem eine Person unbeabsichtigt auf dem Boden oder einer tieferen Ebene landet. Ursachen: intrinsische und extrinsische Risikofaktoren. Screening + bei Bedarf Assessment.</div>
+  <h4 class="subsub">Maßnahmen</h4>
+  <ul>
+    <li>Umgebungsanpassung</li>
+    <li>Hilfsmittel</li>
+    <li>Patientenbegleitung</li>
+    <li>Information und Schulung</li>
+    <li>Dokumentation</li>
+  </ul>
+
+  <h3 class="sub">Pneumonieprophylaxe</h3>
+  <div class="def">Eine Lungenentzündung, die durch eingeatmete Bakterien, Viren oder andere Erreger in den Bronchialästen und im Lungengewebe entsteht.</div>
+  <p><strong>Ursachen:</strong> Bettlägerigkeit/Immobilität, Dysphagie, Sedierung, chronische Lungenerkrankung, Herzerkrankung, Beatmung, hohes Alter, Immunschwäche, Rauchen.</p>
+  <p><strong>Symptome:</strong> Fieber, Schüttelfrost, produktiver Husten mit grünlich-gelblichem Auswurf, plötzliche Atemnot, Tachypnoe, Abgeschlagenheit, Verwirrtheit, SpO₂ niedrig, HF erhöht.</p>
+  <h4 class="subsub">Pflegemaßnahmen – LISA-Prinzip</h4>
+  <ol class="steps">
+    <li><strong>Lunge belüften:</strong> Atemübungen, Oberkörperhochlagerung, VATI-Lagerung</li>
+    <li><strong>Infektion vermeiden:</strong> Handhygiene, Mundpflege, Schutzimpfungen</li>
+    <li><strong>Sekret lösen:</strong> Inhalation, atemstimulierende Einreibung, Flüssigkeitszufuhr, Abhusten unterstützen</li>
+    <li><strong>Aspiration vermeiden:</strong> aufrechte Sitzposition, Schlucken beobachten</li>
+  </ol>
+  <p>Weitere: Rauchstopp.</p>
+
+  <h3 class="sub">Thromboseprophylaxe</h3>
+  <div class="def">Es handelt sich darum, dass durch ein Blutgerinnsel ein Blutgefäß verengt oder verschlossen wird.</div>
+  <h4 class="subsub">Ursachen – Virchow-Trias</h4>
+  <ol class="steps">
+    <li>Verlangsamter Blutfluss: Bettlägerigkeit, langes Sitzen</li>
+    <li>Gefäßwandschädigung: OP, Entzündung, Trauma</li>
+    <li>Veränderte Blutgerinnung: Schwangerschaft, Pilleneinnahme, Gerinnungsstörung</li>
+  </ol>
+  <p><strong>Symptome:</strong> Schwellung, Rötung, Überwärmung, Schmerzen in der Wade beim Gehen, Homans-Zeichen (Schmerzen bei der Dorsalflexion des Fußes), Spannungsgefühl in den Beinen.</p>
+  <h4 class="subsub">Pflegemaßnahmen</h4>
+  <ul>
+    <li>Frühzeitige Mobilisation: Übungen im Bett, Fersen heben, Beine nicht überkreuzen</li>
+    <li>Kompressionstherapie</li>
+    <li>Ausreichende Flüssigkeitszufuhr</li>
+    <li>Beine hochlagern</li>
+    <li>Lange Immobilisation vermeiden</li>
+    <li>Patient und Angehörige über Thrombosezeichen informieren</li>
+  </ul>
+
+  <h3 class="sub">Kontrakturprophylaxe</h3>
+  <div class="def">Es handelt sich um versteifende Gelenke, eine Funktionsstörung der Extremitäten oder einen gesteigerten Widerstand gegen passive Muskeldehnung.</div>
+  <p><strong>Ursachen:</strong> Bettlägerigkeit, Immobilität, Unbeweglichkeit von 4 bis 14 Tagen, neurologische Erkrankung, Gelenkerkrankung, Schonhaltung wegen Schmerzen.</p>
+  <p><strong>Symptome:</strong> schmerzhafte Bewegung, kann Gelenke nicht beugen oder strecken, sichtbare Zwangshaltung.</p>
+  <h4 class="subsub">Expertenstandard: Erhaltung und Förderung der Mobilität</h4>
+  <ol class="steps">
+    <li>Einschätzen</li>
+    <li>Planen</li>
+    <li>Informieren und beraten</li>
+    <li>Anbieten und durchführen</li>
+    <li>Überprüfen und neu einschätzen</li>
+  </ol>
+  <h4 class="subsub">Maßnahmen</h4>
+  <ul>
+    <li><strong>Aktive Bewegungsübungen:</strong> Schulter, Ellenbogen, Handgelenk, Finger durchbewegen; Fußkreisen, Fersen heben, Knie beugen und strecken, Finger spreizen und zusammendrücken.</li>
+    <li><strong>Passive Bewegungsübungen:</strong> nur nach ärztlicher Anordnung, mit beiden Händen, langsam und vorsichtig, niemals über die Schmerzgrenze hinaus, Atemrhythmus beachten.</li>
+    <li><strong>Lagerung und Funktionsstellung:</strong> Gelenke in Mittelstellung lagern, Hohlräume unterstützen, Spitzfußprophylaxe.</li>
+    <li><strong>Frühmobilisation und Aktivierung:</strong> sobald möglich aufsetzen, aufstehen, gehen; aktivierende Pflege, Physiotherapeut einbeziehen.</li>
+    <li><strong>Schmerzmanagement:</strong> Schmerzen lindern, Kälte- und Wärmeanwendung.</li>
+  </ul>
+
+  <h3 class="sub">Intertrigoprophylaxe</h3>
+  <div class="def">Eine Entzündung der Haut, die durch mechanische Reibung der Hautflächen und durch Feuchtigkeit verursacht wird.</div>
+  <p><strong>Ursachen:</strong> übermäßiges Schwitzen, Übergewicht, Diabetes mellitus, HIV, Chemotherapie, Kortikosteroide, Hitze und Luftfeuchtigkeit.</p>
+  <p><strong>Symptome:</strong> leichte Rötung bis leuchtend-glänzende Rötung, Juckreiz, brennende Schmerzen, sekundäre Infektionen durch Candida-Pilze.</p>
+  <h4 class="subsub">Pflegemaßnahmen</h4>
+  <ul>
+    <li><strong>Hautreinigung:</strong> nicht reiben, sondern sanft tupfen; pH-neutrales Produkt, klares lauwarmes Wasser, gründlich und schonend reinigen.</li>
+    <li><strong>Hautpflege und trocken halten:</strong> gründlich trocknen, keine Puder auftragen, bei Pilzbefall keine Hautschutzcreme.</li>
+    <li><strong>Hauttrennung:</strong> weiche Vlieskompressen zwischen die Hautfalten legen.</li>
+    <li>Feuchtigkeitsabtransportierende, eng anliegende, luftdurchlässige Kleidung; Licht und Luft an die Haut lassen.</li>
+    <li>Beratung und Schulung, Gewichtsreduktion, Ess- und Trinkverhalten, Hautpflegeroutine gemeinsam planen.</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 8 -->
+<section id="t8">
+  <h2 class="sec"><span class="n">8</span> Kommunikation</h2>
+
+  <h3 class="sub">1. Watzlawick – 5 Axiome</h3>
+  <ul>
+    <li>Man kann nicht nicht kommunizieren</li>
+    <li>Kommunikation hat einen Inhalts- und einen Beziehungsaspekt</li>
+    <li>Kommunikation ist immer Ursache und Wirkung</li>
+    <li>Es gibt digitale und analoge Kommunikation</li>
+    <li>Kommunikation ist komplementär oder symmetrisch</li>
+  </ul>
+
+  <h3 class="sub">2. 4-Ohren-Modell nach Schulz von Thun</h3>
+  <p>Jede Nachricht hat 4 Botschaften: Sachinhalt, Selbstoffenbarung, Beziehung, Appell.</p>
+
+  <h3 class="sub">3. Rogers</h3>
+  <p>Empathie, Kongruenz, Akzeptanz.</p>
+
+  <h3 class="sub">4. Motivationsgespräche</h3>
+  <p>Empathie, Diskrepanz, Widerstand aufnehmen, Selbstwirksamkeit fördern.</p>
+  <p><strong>OARS:</strong> offene Fragen, Affirm, Reflektieren, Summarize.</p>
+
+  <h3 class="sub">5. Validation nach Naomi Feil</h3>
+  <p>Menschen mit Demenz in ihrer subjektiven Realität anerkennen und wertschätzen. Sie erklärt, dass viele Menschen mit Demenz sterben, weil sie die alltäglichen Aktivitäten nicht mehr machen können.</p>
+  <p><strong>Grundlagen:</strong> nicht korrigieren, nicht lügen, Gefühle spiegeln, eigene Gefühle nicht zeigen, nonverbale Kommunikation, Biografiearbeit.</p>
+
+  <h3 class="sub">6. Aphasie</h3>
+  <p>Eine erworbene Sprachstörung, bei der die Wörter nicht ausgedrückt und/oder nicht verstanden werden können – verursacht durch eine Hirnschädigung.</p>
+  <p>Wichtig: langsam, deutlich und mit kurzen Sätzen sprechen, Zeit lassen, nicht für die Patienten sprechen, keinen Druck zeigen, nonverbale Kommunikation nutzen, bei Erfolg loben, geschlossene Fragen stellen.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 9 -->
+<section id="t9">
+  <h2 class="sec"><span class="n">9</span> Ethik</h2>
+  <p class="lead"><strong>Nach Beauchamp und Childress:</strong></p>
+  <ol class="steps">
+    <li>Autonomie</li>
+    <li>Beneficence (Benefizienz)</li>
+    <li>Non-Maleficence (Non-Malefizienz)</li>
+    <li>Justice (Gerechtigkeit)</li>
+  </ol>
+  <p>ICN-Ethikkodex als Grundlage. Bei einem Dilemma: anderen Zeitpunkt auswählen, Gespräche suchen, bei schwerwiegenden Situationen Ethikkommission einbeziehen.</p>
+
+  <h3 class="sub">Patientenverfügung</h3>
+  <div class="def">Schriftliche Willenserklärung des Patienten für den Fall, dass er oder sie nicht mehr einwilligungsfähig ist. Kann jederzeit widerrufen werden. Enthält Wünsche zu lebensrettender Behandlung, Ablehnung medizinischer Behandlung, Organspende und Sterbebegleitung. Es wird kein Notar benötigt.</div>
+
+  <h3 class="sub">Vorsorgevollmacht</h3>
+  <div class="def">Der Patient bevollmächtigt eine andere Person, für ihn zu entscheiden, falls er nicht mehr einwilligungsfähig ist. Diese Person entscheidet für den Patienten.</div>
+
+  <h3 class="sub">Betreuungsverfügung</h3>
+  <div class="def">Bei Antrag einer Betreuung durch das Gericht. Das Gericht entscheidet für den Patienten.</div>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 10 -->
+<section id="t10">
+  <h2 class="sec"><span class="n">10</span> Beratung</h2>
+  <p class="lead">Jeder Versicherte hat Anspruch auf eine pflegerische, neutrale Beratung. Jede pflegebedürftige Person hat Anspruch auf eine individuelle pflegerische Beratung nach § 7a SGB XI. Es ist eine Informationsvermittlung.</p>
+  <ol class="steps">
+    <li>Beziehung aufbauen</li>
+    <li>Beratungsbedarf erfassen</li>
+    <li>Information geben</li>
+    <li>Gemeinsam Lösung finden und planen</li>
+    <li>Maßnahmen vereinbaren</li>
+    <li>Nachbesprechung, Evaluierung</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 11 -->
+<section id="t11">
+  <h2 class="sec"><span class="n">11</span> Schulung</h2>
+  <p class="lead">Eine systematische Wissensvermittlung.</p>
+  <ol class="steps">
+    <li>Lernziele festlegen</li>
+    <li>Wissensstand erfassen</li>
+    <li>Inhalte vermitteln</li>
+    <li>Üben</li>
+    <li>Überprüfen</li>
+    <li>Dokumentieren</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 12 -->
+<section id="t12">
+  <h2 class="sec"><span class="n">12</span> Anleitung</h2>
+  <p class="lead">Sie befähigt den Patienten oder Angehörige, eine konkrete pflegerische Tätigkeit auszuführen.</p>
+  <ol class="steps">
+    <li>Demonstration</li>
+    <li>Zusammen üben mit dem Patienten oder Angehörigen</li>
+    <li>Patienten oder Angehörige selbstständig üben lassen</li>
+    <li>Feedback geben</li>
+    <li>Wiederholen bis Sicherheit erreicht ist</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 13 -->
+<section id="t13">
+  <h2 class="sec"><span class="n">13</span> Trajekt-Modell nach Corbin und Strauss</h2>
+  <p class="lead">Jede chronische Erkrankung hat einen individuellen Verlauf in Phasen. Die Pflege muss sich daran anpassen. Biographie, soziales Umfeld und Ressourcen aktiv einbeziehen.</p>
+  <p><strong>Bewältigungsbereiche:</strong> krankheitsbezogen, alltagsbezogen, biographiebezogen.</p>
+  <h3 class="sub">Phasen</h3>
+  <ul>
+    <li><strong>Präklinisch:</strong> noch keine Symptome, Prävention möglich</li>
+    <li><strong>Diagnostisch:</strong> erste Symptome, Diagnosestellung</li>
+    <li><strong>Akut:</strong> Krankenhausaufenthalt nötig</li>
+    <li><strong>Krise:</strong> lebensbedrohliche Situation, Notfall</li>
+    <li><strong>Instabil:</strong> unkontrollierte Symptome, häufige Anpassung nötig</li>
+    <li><strong>Stabil:</strong> kontrollierter Verlauf durch Therapie und Pflege</li>
+    <li><strong>Verfall:</strong> fortschreitende Verschlechterung trotz Interventionen</li>
+    <li><strong>Sterben:</strong> Palliativphase, Begleitung bis zum Tod</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 14 -->
+<section id="t14">
+  <h2 class="sec"><span class="n">14</span> Pharmakologie</h2>
+  <h3 class="sub">ADME</h3>
+  <ul>
+    <li><strong>A – Absorption:</strong> Aufnahme in den Körper; oral über Magen und Darm zur Leber (First-Pass-Effekt)</li>
+    <li><strong>D – Distribution:</strong> Verteilung im Körper, beeinflusst durch Fettgewebe, Alter, Nierenfunktion</li>
+    <li><strong>M – Metabolismus:</strong> Abbau in der Leber; bei Lebererkrankung Gefahr der Überdosierung</li>
+    <li><strong>E – Exkretion:</strong> Ausscheidung über die Nieren; bei Niereninsuffizienz Gefahr der Akkumulation, Dosisanpassung nötig</li>
+  </ul>
+  <h3 class="sub">Agonist / Antagonist</h3>
+  <p><strong>Agonist:</strong> dockt sich an den Rezeptor und aktiviert ihn.<br/>
+  <strong>Antagonist:</strong> dockt sich an den Rezeptor und blockiert ihn – keine Wirkung.</p>
+  <h3 class="sub">Besondere Risikogruppen bei Medikamenten</h3>
+  <ul>
+    <li><strong>Ältere Menschen:</strong> wegen verlangsamter Leber- und Nierenfunktion, Polypharmazie und mehr Fettgewebe sollte eine niedrige Dosis gewählt und die Nebenwirkungen engmaschig beobachtet werden.</li>
+    <li><strong>Niereninsuffizienz:</strong> schlechte Ausscheidung der Medikamente führt zu Akkumulation; Dosis anpassen, Laborwerte kontrollieren.</li>
+    <li><strong>Lebererkrankung:</strong> schlechter Abbau; Dosis anpassen und das Bewusstsein beobachten.</li>
+    <li><strong>Schwangerschaft:</strong> viele Medikamente sind teratogen; Einnahme nur nach Rücksprache mit dem Arzt.</li>
+    <li><strong>Dysphagie:</strong> Medikamente können nicht eingenommen werden; flüssige oder retardierte Form klären, kein einfaches Mörsern ohne Rücksprache mit dem Arzt.</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 15 -->
+<section id="t15">
+  <h2 class="sec"><span class="n">15</span> Mangelernährung</h2>
+  <div class="def">Unzureichende Zufuhr von Energie und Nährstoffen. Führt zu Gewichtsverlust, Muskelschwund, Immunschwäche und verzögerter Wundheilung.</div>
+  <p><strong>Symptome:</strong> BMI weniger als 18,5 kg/m², 5 % Gewichtsverlust in 3 Monaten, trockene Haut und Haarausfall.</p>
+  <p><strong>Risikofaktoren:</strong> Dysphagie und Kauprobleme, Appetitlosigkeit durch Medikamente, Depression, Demenz, Mobilitätseinschränkung, soziale Isolierung, Trauer, Pflegebedürftigkeit, chronische Erkrankung mit hohem Bedarf.</p>
+  <p><strong>Assessment:</strong> MNA (Mini Nutritional Assessment), NRS (Nutritional Risk Screening).</p>
+  <h3 class="sub">Interventionen</h3>
+  <ul>
+    <li>Regelmäßige Gewichtskontrolle</li>
+    <li>Ernährungsprotokoll führen</li>
+    <li>Kleine, häufige, nährstoffreiche Mahlzeiten</li>
+    <li>Hilfsmittel wie angepasstes Besteck, angedickte Kost</li>
+    <li>Flüssigkeitszufuhr fördern</li>
+    <li>Interprofessionelle Zusammenarbeit</li>
+    <li>Angenehme Essatmosphäre schaffen</li>
+    <li>Lieblingsessen erfragen und berücksichtigen</li>
+    <li>Ausreichend Zeit lassen</li>
+    <li>Bei Bedarf orale Nährstoffergänzung</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 16 -->
+<section id="t16">
+  <h2 class="sec"><span class="n">16</span> Adipositas</h2>
+  <div class="def">BMI über 30 kg/m².</div>
+  <p><strong>Folgen:</strong> Diabetes mellitus, Hypertonie, KHK, erhöhtes Dekubitus-, Intertrigo- und Thromboserisiko, Depression, soziale Isolierung, Schlafapnoe.</p>
+  <h3 class="sub">Interventionen</h3>
+  <ul>
+    <li>Würde respektieren</li>
+    <li>Bewegung in kleinen, erreichbaren Schritten fördern</li>
+    <li>Ernährungsberatung anbieten – nicht aufzwingen</li>
+    <li>Hilfsmittel wie Pflegebett mit erhöhter Traglast, Rollstuhl in passender Größe</li>
+    <li>Hilfe beim Transfer</li>
+    <li>Erhöhte Dekubitus- und Thromboseprophylaxe</li>
+    <li>Hautpflege und regelmäßige Hautinspektion wegen Intertrigo</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 17 -->
+<section id="t17">
+  <h2 class="sec"><span class="n">17</span> Palliativpflege</h2>
+  <p class="lead">Ansatz zur Verbesserung der Lebensqualität bei schwer erkrankten Menschen und ihren Angehörigen.</p>
+  <p><strong>Leiden lindern:</strong> weder den Tod beschleunigen noch hinauszögern.</p>
+  <div class="hi"><b>Weniger ist mehr:</b> jede Maßnahme am Nutzen-Belastungs-Verhältnis überprüfen, jede Maßnahme mit dem Patienten absprechen – Lebensqualität ist das oberste Ziel. Früh anfangen, nicht erst in der Sterbephase.</div>
+  <h3 class="sub">Einsätze</h3>
+  <ul>
+    <li><strong>Palliativstation:</strong> im Krankenhaus</li>
+    <li><strong>Stationäres Hospiz:</strong> spezialisierte Einrichtung</li>
+    <li><strong>Ambulantes Hospiz:</strong> durch ehrenamtliche Begleiter</li>
+    <li><strong>SAPV:</strong> Spezialisierte Ambulante Palliativversorgung durch Palliativmediziner und Pflegefachkraft</li>
+  </ul>
+  <h3 class="sub">Pflege / Symptomkontrolle</h3>
+  <ul>
+    <li><strong>Schmerz:</strong> kontinuierliches Assessment, WHO-Schema umsetzen, dokumentieren</li>
+    <li><strong>Atemnot:</strong> OKH, frische Luft oder Ventilator, O₂-Gabe nach ärztlicher Anordnung, beruhigende Präsenz</li>
+    <li><strong>Übelkeit:</strong> Antiemetika, kleine Mahlzeiten, Gerüche meiden</li>
+    <li><strong>Mundtrockenheit:</strong> feuchte Tupfer, Eiswürfel, Lieblingsgetränke</li>
+  </ul>
+  <h3 class="sub">Kommunikation und Begleitung</h3>
+  <p>Aktiv zuhören, keine falschen Versprechungen, spirituelle Bedürfnisse (Seelsorger einbeziehen), Angehörige einbeziehen und in der Trauer begleiten.</p>
+  <h3 class="sub">Sterbephase</h3>
+  <ul>
+    <li>Schmerzfreiheit ist das oberste Ziel</li>
+    <li>Körperpflege nur, was nötig und gewünscht ist</li>
+    <li>Mundpflege ausreichend, auch ohne Flüssigkeitszufuhr</li>
+    <li>Würde und vertraute Umgebung wahren</li>
+    <li>Angehörige können anwesend sein</li>
+  </ul>
+  <h3 class="sub">Sterbehilfe</h3>
+  <ul>
+    <li><strong>Passiv:</strong> Verzicht auf lebensverlängernde Maßnahmen – in Deutschland zugelassen.</li>
+    <li><strong>Indirekt:</strong> Schmerzmittel, die als Nebenwirkung das Leben verkürzen können – in Deutschland zugelassen.</li>
+    <li><strong>Assistierter Suizid:</strong> der Patient nimmt selbst das bereitgestellte Mittel – in Deutschland zugelassen.</li>
+    <li><strong>Aktiv:</strong> Töten auf Verlangen durch eine andere Person – nicht zugelassen.</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 18 -->
+<section id="t18">
+  <h2 class="sec"><span class="n">18</span> Recht</h2>
+  <h3 class="sub">Grundlage des Pflegeberufegesetzes</h3>
+  <ul>
+    <li>Erhebung und Feststellung des Pflegebedarfs</li>
+    <li>Organisation, Gestaltung und Steuerung der Pflege</li>
+    <li>Analyse, Evaluation und Qualitätssicherung der Pflege</li>
+  </ul>
+  <h3 class="sub">Zivilrecht – Verantwortungen</h3>
+  <p><strong>Arzt:</strong> Anordnungsverantwortung. <strong>Pflegefachkraft:</strong> Durchführungsverantwortung.</p>
+  <p><strong>Weigerungsrecht:</strong> Die Pflegefachkraft muss die Durchführung verweigern, wenn die Kompetenz fehlt oder wenn die Anordnung falsch ist.</p>
+  <h3 class="sub">Strafrecht</h3>
+  <p><strong>Unterlassene Hilfeleistung:</strong> Wer bei einem Unglücksfall oder einer Gefahr nicht hilft, obwohl es zumutbar ist, macht sich strafbar.</p>
+  <h3 class="sub">FEM – Freiheitsentziehende Maßnahmen</h3>
+  <p>Pflegemaßnahmen, die die Bewegungsfreiheit einschränken oder entziehen. <strong>Formen:</strong> mechanische Fixierung, chemische Fixierung, Unterbringung gegen den Willen.</p>
+  <h4 class="subsub">FEM ist zulässig, wenn …</h4>
+  <ul>
+    <li>der Patient einwilligungsfähig ist → es braucht die Einwilligung des Patienten.</li>
+    <li>der Patient einwilligungsunfähig ist und einen Betreuer oder eine Vollmacht hat → es braucht die Einwilligung des Betreuers/Bevollmächtigten und eine richterliche Genehmigung bei dauerhafter oder regelmäßiger Fixierung.</li>
+    <li>der Patient einwilligungsunfähig ist und keinen Betreuer hat → mutmaßliche Einwilligung im Notfall und das Betreuungsgericht einschalten.</li>
+  </ul>
+  <h4 class="subsub">FEM ist zulässig bei …</h4>
+  <ul>
+    <li>Selbst- oder Fremdgefährdung</li>
+    <li>Notwehr</li>
+    <li>einer Heilbehandlung, die anders nicht durchgeführt werden kann</li>
+  </ul>
+  <h3 class="sub">Dokumentationspflicht</h3>
+  <p>Rechtliche Absicherung, Qualitätssicherung, interdisziplinäre Zusammenarbeit, kontinuierliche Verbesserung und Steuerung des Pflegeprozesses.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 19 -->
+<section id="t19">
+  <h2 class="sec"><span class="n">19</span> Gesundheitsförderung &amp; Prävention</h2>
+  <h3 class="sub">Ottawa-Charta (1986)</h3>
+  <p>Grundlage für die Gesundheitsförderung weltweit. Sie ist der Prozess, Menschen zu befähigen, mehr Kontrolle über ihre Gesundheit zu erlangen und sie zu verbessern.</p>
+  <h4 class="subsub">5 Grundstrategien</h4>
+  <ol class="steps">
+    <li>Gesundheitsfördernde Gesamtpolitik</li>
+    <li>Gesundheitsfördernde Lebenswelt</li>
+    <li>Gemeinschaftliche Aktionen stärken</li>
+    <li>Persönliche Kompetenzen entwickeln</li>
+    <li>Gesundheitsdienste neu orientieren</li>
+  </ol>
+  <h3 class="sub">Salutogenese nach Antonovsky</h3>
+  <p>Der Gegenpol zur Pathogenese. Hier wird nicht gefragt „Warum krank?", sondern „Was hält gesund?".</p>
+  <h4 class="subsub">Kohärenzgefühl</h4>
+  <ul>
+    <li><strong>Verstehbarkeit:</strong> Ich verstehe, was um mich herum passiert.</li>
+    <li><strong>Handhabbarkeit:</strong> Ressourcen sind vorhanden, um die Anforderungen zu bewältigen.</li>
+    <li><strong>Bedeutsamkeit:</strong> Die Anforderungen sind es wert, sich einzusetzen.</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 20 -->
+<section id="t20">
+  <h2 class="sec"><span class="n">20</span> Pflegecharta</h2>
+  <p class="lead">Die Rechte pflegebedürftiger Menschen stärken, einen Maßstab für würdevolle Pflege setzen, Qualitätskriterien für Einrichtungen und Aufsichtsbehörden.</p>
+  <ol class="steps">
+    <li>Selbstbestimmung und Hilfe zur Selbsthilfe</li>
+    <li>Körperliche und seelische Unversehrtheit, Freiheit und Sicherheit</li>
+    <li>Privatheit</li>
+    <li>Pflege, Betreuung und Behandlung</li>
+    <li>Information, Beratung und Aufklärung</li>
+    <li>Kommunikation, Wertschätzung und Teilhabe an der Gesellschaft</li>
+    <li>Religion, Kultur und Weltanschauung</li>
+    <li>Begleitung beim Sterben und Tod</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 21 -->
+<section id="t21">
+  <h2 class="sec"><span class="n">21</span> EACH-Charta</h2>
+  <p class="lead">Für Kinder im Krankenhaus. Die Rechte kranker Kinder vor, während und nach dem Krankenhausaufenthalt. Sie gilt unabhängig von Alter, Erkrankung, Herkunft oder Behinderung des Kindes.</p>
+  <ol class="steps">
+    <li>Krankenhausaufenthalt nur, wenn es medizinisch notwendig ist</li>
+    <li>Recht auf Bildung im Krankenhaus</li>
+    <li>Eltern oder Bezugsperson dürfen jederzeit, rund um die Uhr, beim Kind sein</li>
+    <li>Altersgerechte Information für Kinder und Eltern</li>
+    <li>Eltern und Kinder werden in jede Entscheidung einbezogen, um sie vor unnötigen Maßnahmen zu schützen</li>
+    <li>Unterbringung nur mit gleichaltrigen Kindern</li>
+    <li>Recht auf Spiel, Erholung und Schulbildung im Krankenhaus</li>
+    <li>Betreuung durch kindgerecht ausgebildetes und einfühlsames Personal</li>
+    <li>Kontinuität der Pflege durch feste Teams</li>
+    <li>Respekt vor Privatsphäre, Würde und individuellen Bedürfnissen</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 22 -->
+<section id="t22">
+  <h2 class="sec"><span class="n">22</span> Interdisziplinäre Zusammenarbeit</h2>
+  <p class="lead">Zusammenarbeit zwischen verschiedenen Fachbereichen und Experten.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 23 -->
+<section id="t23">
+  <h2 class="sec"><span class="n">23</span> Delegation</h2>
+  <p class="lead">Übertragung von Aufgaben an andere Personen.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 24 -->
+<section id="t24">
+  <h2 class="sec"><span class="n">24</span> SBAR-Übergabe</h2>
+  <ul>
+    <li><strong>S – Situation:</strong> Was ist gerade das Problem?</li>
+    <li><strong>B – Background:</strong> relevante Vorgeschichte, Vorerkrankung</li>
+    <li><strong>A – Assessment:</strong> fachliche Einschätzung der Pflegefachkraft</li>
+    <li><strong>R – Recommendation:</strong> Empfehlung von Maßnahmen oder was wird gebraucht?</li>
+  </ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<!-- 25 -->
+<section id="t25">
+  <h2 class="sec"><span class="n">25</span> Expertenstandards</h2>
+
+  <h3 class="sub">1. Dekubitusprophylaxe</h3>
+  <ol class="steps">
+    <li>Druckgeschwüre vermeiden</li>
+    <li>Risikoeinschätzung durch Braden-Skala</li>
+    <li>Maßnahmen: Positionierung, Bewegung fördern, Hautbeobachtung, Hilfsmittel</li>
+    <li>Risikogruppen: immobile, unterernährte, inkontinente Patienten</li>
+  </ol>
+
+  <h3 class="sub">2. Schmerzmanagement</h3>
+  <ol class="steps">
+    <li>Akute und chronische Schmerzen</li>
+    <li>Assessment durch NRS, VAS, Wong-Baker Smiley-Skala und BESD</li>
+    <li>Regelmäßiges Reassessment</li>
+    <li>Multimodale Schmerztherapie</li>
+  </ol>
+
+  <h3 class="sub">3. Sturzprophylaxe</h3>
+  <ol class="steps">
+    <li>Assessment durch Sturzassessment oder Morse Fall Scale</li>
+    <li>Risikofaktoren: intrinsisch, extrinsisch</li>
+    <li>Maßnahmen: Umgebungsanpassung, Hilfsmittel, Bewegung fördern</li>
+    <li>Fixierung ist keine Maßnahme</li>
+  </ol>
+
+  <h3 class="sub">4. Ernährungsmanagement</h3>
+  <ol class="steps">
+    <li>Mangelernährung vermeiden</li>
+    <li>Einschätzung durch MNA, NRS</li>
+    <li>Ursachen erkennen: Dysphagie, Appetitlosigkeit, Demenz</li>
+    <li>Maßnahmen: Trinknahrung, angepasste Kost, protokollieren, PEG-Sonde</li>
+  </ol>
+
+  <h3 class="sub">5. Förderung der Harnkontinenz</h3>
+  <ol class="steps">
+    <li>Kontinenz erhalten oder verbessern oder Inkontinenz kompensieren</li>
+    <li>Kontinenzprofil bestimmen</li>
+    <li>Blasentraining, angepasste Hilfsmittel, Beckenbodentraining</li>
+  </ol>
+
+  <h3 class="sub">6. Mobilität und Bewegung fördern</h3>
+  <ol class="steps">
+    <li>Mobilität erhalten und fördern</li>
+    <li>Einschätzung durch Timed Up and Go Test</li>
+    <li>Kontraktur, Thrombose, Pneumonie vermeiden</li>
+    <li>Frühmobilisation, Positionierung, Physiotherapie</li>
+  </ol>
+
+  <h3 class="sub">7. Chronische Wunden</h3>
+  <ol class="steps">
+    <li>Wundassessment: Größe, Tiefe, Exsudat, Infektionszeichen</li>
+    <li>Regelmäßige Wunddokumentation</li>
+    <li>Feuchte Wundversorgung als Standard</li>
+    <li>Ursache behandeln</li>
+  </ol>
+
+  <h3 class="sub">8. Entlassungsmanagement</h3>
+  <ol class="steps">
+    <li>Versorgungsbrüche beim Übergang vermeiden</li>
+    <li>Beginnt schon früh bei der Aufnahme</li>
+    <li>24 Stunden vor Entlassung planen und vorbereiten, mit Patient und Angehörigen klären, bei Bedarf den Plan anpassen</li>
+    <li>Nachversorgung organisieren</li>
+    <li>Pflegeüberleitungsprotokoll als wichtiges Instrument</li>
+  </ol>
+
+  <h3 class="sub">9. Demenz / kognitive Einschränkung</h3>
+  <ol class="steps">
+    <li>Personzentrierter Ansatz nach Tom Kitwood</li>
+    <li>Biographiearbeit, Validation, Orientierungspflege</li>
+    <li>Würde und Autonomie erhalten</li>
+    <li>Herausforderndes Verhalten verstehen, nicht bekämpfen</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<footer>
+  Pflege Revision · Saarland 2026 · Persönliche Lernzusammenfassung
+</footer>
+
+</div>
+</body>
+</html>
