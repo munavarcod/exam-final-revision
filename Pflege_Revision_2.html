@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Pflege Revision · Munavar</title>
+<meta name="theme-color" content="#fafaf7"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Pflege Revision"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  /* Palette – clinical mint × paper × ink, with amber for clinical findings */
+  --paper:#fafaf7;
+  --paper-2:#f3f1ea;
+  --rule:#e0ddd2;
+  --rule-soft:#ecead0;
+  --ink:#161614;
+  --ink-soft:#3a3a36;
+  --ink-mute:#75736b;
+  --mint:#2d7a56;
+  --mint-soft:#3d9970;
+  --mint-tint:#e6f0ea;
+  --amber:#b8763e;
+  --amber-soft:#cf8b4f;
+  --amber-tint:#f4e9dc;
+  --hi:#fdf4d8;
+  --hi-line:#e9d391;
+
+  /* Type */
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Layout */
+  --pad:clamp(20px, 4vw, 36px);
+  --content-max:720px;
+
+  /* Motion */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --dur-fast:.18s;
+  --dur:.32s;
+  --dur-slow:.55s;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.62;
+  font-size:16.5px;
+  font-feature-settings:"ss01","cv11";
+  -webkit-text-size-adjust:100%;
+  font-variation-settings:"opsz" 14;
+}
+
+/* Subtle paper grain — adds warmth without noise, drifts slowly for a touch of life */
+body::before{
+  content:"";position:fixed;inset:-10%;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(45,122,86,.028), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(184,118,62,.02), transparent 65%);
+  animation:drift 38s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(-1.5%,1.5%) scale(1.03)}
+}
+@media (prefers-reduced-motion: reduce){
+  body::before{animation:none}
+}
+
+.wrap{
+  max-width:var(--content-max);
+  margin:0 auto;
+  padding:clamp(28px,4vw,52px) var(--pad) 96px;
+  position:relative;
+  z-index:1;
+}
+
+/* ─────────── HEADER ─────────── */
+header.top{
+  padding:clamp(8px,2vw,16px) 0 clamp(28px,5vw,44px);
+  position:relative;
+}
+.eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);
+  font-size:11.5px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-mute);
+  margin-bottom:clamp(22px,4vw,34px);
+}
+.eyebrow .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--mint);
+  box-shadow:0 0 0 3px var(--mint-tint);
+  animation:pulse 2.4s var(--ease) infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.55;transform:scale(.85)}
+}
+.eyebrow .sep{color:var(--rule);font-weight:400}
+
+h1.wordmark{
+  font-family:var(--serif);
+  font-weight:340;
+  font-size:clamp(56px, 13vw, 124px);
+  line-height:.9;
+  letter-spacing:-.045em;
+  color:var(--ink);
+  font-variation-settings:"opsz" 144, "SOFT" 30;
+  font-feature-settings:"ss01","liga","dlig";
+  margin:0;
+}
+h1.wordmark .line-2{
+  display:block;
+  font-style:italic;
+  font-weight:300;
+  color:var(--mint);
+  margin-top:-.04em;
+  font-variation-settings:"opsz" 144, "SOFT" 50, "WONK" 1;
+}
+h1.wordmark .ampersand{
+  font-style:italic;font-weight:300;
+  color:var(--ink-mute);
+  font-variation-settings:"opsz" 144, "SOFT" 80, "WONK" 1;
+  margin:0 .04em;
+}
+
+.byline{
+  margin-top:clamp(22px,4vw,32px);
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:18px;
+  align-items:center;
+  padding-top:18px;
+  border-top:1px solid var(--rule);
+}
+.byline .col{
+  font-size:12.5px;
+  color:var(--ink-mute);
+  font-family:var(--mono);
+  letter-spacing:.04em;
+}
+.byline .col strong{
+  display:block;
+  font-family:var(--sans);
+  font-weight:600;
+  letter-spacing:.01em;
+  color:var(--ink);
+  font-size:14px;
+  margin-bottom:2px;
+}
+.byline .col.right{text-align:right}
+.byline .crest{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:22px;
+  color:var(--mint);
+  font-variation-settings:"opsz" 48;
+  line-height:1;
+  padding:0 4px;
+}
+
+@media(max-width:540px){
+  .byline{grid-template-columns:1fr;text-align:left;gap:10px}
+  .byline .col.right{text-align:left}
+  .byline .crest{display:none}
+}
+
+/* ─────────── TABS (segmented control) ─────────── */
+.tabs{
+  position:sticky;
+  top:0;
+  z-index:30;
+  margin:0 calc(var(--pad) * -1) 28px;
+  padding:14px var(--pad) 0;
+  background:linear-gradient(to bottom, var(--paper) 70%, transparent);
+  backdrop-filter:saturate(160%) blur(8px);
+  -webkit-backdrop-filter:saturate(160%) blur(8px);
+}
+.tabs-track{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:var(--paper-2);
+  border-radius:14px;
+  padding:5px;
+  isolation:isolate;
+}
+.tabs-pill{
+  position:absolute;
+  top:5px;bottom:5px;
+  width:calc(50% - 5px);
+  left:5px;
+  background:var(--ink);
+  border-radius:10px;
+  z-index:1;
+  transition:transform var(--dur) var(--ease-out), background var(--dur) var(--ease);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.04) inset,
+    0 4px 12px -2px rgba(22,22,20,.18),
+    0 2px 4px -1px rgba(22,22,20,.12);
+}
+.tabs[data-active="krankheit"] .tabs-pill{
+  transform:translateX(calc(100% + 0px));
+  background:var(--amber);
+}
+.tab-btn{
+  position:relative;
+  z-index:2;
+  font-family:var(--sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.005em;
+  padding:11px 12px;
+  border:0;
+  background:transparent;
+  color:var(--ink-mute);
+  cursor:pointer;
+  border-radius:10px;
+  transition:color var(--dur) var(--ease);
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  -webkit-tap-highlight-color:transparent;
+  font-feature-settings:"tnum","ss01";
+}
+.tab-btn .tab-num{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  opacity:.6;
+  letter-spacing:0;
+  padding:2px 6px;
+  border-radius:4px;
+  background:rgba(0,0,0,.04);
+  transition:all var(--dur) var(--ease);
+}
+.tab-btn.active{color:#fff}
+.tab-btn.active .tab-num{
+  background:rgba(255,255,255,.15);
+  color:rgba(255,255,255,.85);
+  opacity:1;
+}
+.tab-btn:not(.active):hover{color:var(--ink)}
+.tab-btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:10px}
+
+/* ─────────── PANELS ─────────── */
+.panel{
+  display:none;
+  opacity:0;
+}
+.panel.active{
+  display:block;
+  animation:panelIn var(--dur-slow) var(--ease-out) forwards;
+}
+@keyframes panelIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Hide old part dividers - tabs replace them */
+.part{display:none}
+
+/* ─────────── TOC ─────────── */
+nav.toc{
+  background:transparent;
+  border:0;
+  padding:0;
+  margin:0 0 44px;
+}
+nav.toc h3{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  margin:0 0 16px;
+  display:flex;align-items:center;gap:10px;
+}
+nav.toc h3::after{
+  content:"";flex:1;height:1px;background:var(--rule);
+}
+nav.toc ol{
+  list-style:none;
+  counter-reset:toc;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:0;
+  border-top:1px solid var(--rule);
+}
+nav.toc li{
+  counter-increment:toc;
+  border-bottom:1px solid var(--rule-soft);
+  border-bottom-color:#ecead0;
+}
+nav.toc a{
+  display:grid;
+  grid-template-columns:36px 1fr auto;
+  align-items:baseline;
+  gap:14px;
+  padding:11px 4px;
+  text-decoration:none;
+  color:var(--ink-soft);
+  font-size:15.5px;
+  transition:all var(--dur-fast) var(--ease);
+  position:relative;
+}
+nav.toc a::before{
+  content:counter(toc, decimal-leading-zero);
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  color:var(--ink-mute);
+  font-feature-settings:"tnum";
+  letter-spacing:.04em;
+}
+nav.toc a::after{
+  content:"→";
+  font-family:var(--serif);
+  font-size:14px;
+  opacity:0;
+  transform:translateX(-4px);
+  transition:all var(--dur) var(--ease-out);
+  color:var(--mint);
+}
+nav.toc a:hover{
+  color:var(--ink);
+  padding-left:8px;
+}
+nav.toc a:hover::before{color:var(--mint)}
+nav.toc a:hover::after{opacity:1;transform:translateX(0)}
+
+nav.toc .k-list{counter-reset:tock}
+nav.toc .k-list li{counter-increment:tock}
+nav.toc .k-list a::before{content:counter(tock, decimal-leading-zero)}
+nav.toc .k-list a::after{color:var(--amber)}
+nav.toc .k-list a:hover::before{color:var(--amber)}
+
+/* ─────────── SECTIONS ─────────── */
+section{
+  margin:64px 0;
+  scroll-margin-top:90px;
+  position:relative;
+}
+section + section{
+  padding-top:64px;
+  border-top:1px solid var(--rule);
+}
+section h2.sec{
+  font-family:var(--serif);
+  font-size:clamp(28px,4.5vw,38px);
+  font-weight:400;
+  letter-spacing:-.025em;
+  line-height:1.1;
+  color:var(--ink);
+  margin:0 0 28px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:18px;
+  align-items:baseline;
+  font-variation-settings:"opsz" 72, "SOFT" 30;
+}
+section h2.sec .n{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  font-feature-settings:"tnum";
+  color:var(--ink-mute);
+  letter-spacing:.04em;
+  background:transparent;
+  padding:0;
+  border-radius:0;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding-top:8px;
+}
+section h2.sec .n::before{
+  content:"";
+  width:24px;height:1px;
+  background:var(--mint);
+}
+section.k h2.sec .n::before{background:var(--amber)}
+
+
+h3.sub{
+  position:relative;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  font-family:var(--sans);
+  font-size:13.5px;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--mint);
+  margin:0;
+  padding:38px 0 13px;
+}
+section.k h3.sub{color:var(--amber)}
+h3.sub::before{
+  content:"";
+  width:13px;height:1px;
+  background:currentColor;
+  opacity:.5;
+  flex-shrink:0;
+  transform:translateY(-1px);
+}
+section > h3.sub:not(:first-of-type)::after{
+  content:"";
+  position:absolute;
+  top:17px;left:0;
+  width:64px;height:1px;
+  background:linear-gradient(to right, var(--rule), transparent);
+}
+h4.subsub{
+  font-family:var(--sans);
+  font-size:14.5px;font-weight:600;
+  color:var(--ink);
+  margin:20px 0 7px 1px;
+  padding-left:13px;
+  border-left:2px solid var(--mint-tint);
+  letter-spacing:.005em;line-height:1.3;
+}
+section.k h4.subsub{border-left-color:var(--amber-tint)}
+
+
+p{margin:10px 0;color:var(--ink-soft)}
+.lead{color:var(--ink);font-size:17px}
+
+ul,ol.steps{margin:10px 0 14px;padding-left:0;list-style:none}
+ul li{
+  padding-left:18px;
+  position:relative;
+  margin:6px 0;
+  color:var(--ink-soft);
+}
+ul li::before{
+  content:"";
+  position:absolute;
+  left:0;top:.7em;
+  width:6px;height:1px;
+  background:var(--ink-mute);
+}
+
+ol.steps{counter-reset:st;padding-left:0}
+ol.steps>li{
+  counter-increment:st;
+  position:relative;
+  padding-left:42px;
+  margin:10px 0;
+  color:var(--ink-soft);
+  min-height:24px;
+}
+ol.steps>li::before{
+  content:counter(st);
+  position:absolute;
+  left:0;top:1px;
+  width:26px;height:26px;
+  border:1px solid var(--mint);
+  color:var(--mint);
+  border-radius:50%;
+  font-family:var(--mono);
+  font-size:11.5px;
+  font-weight:500;
+  font-feature-settings:"tnum";
+  display:flex;align-items:center;justify-content:center;
+  background:var(--paper);
+  transition:all var(--dur) var(--ease);
+}
+section.k ol.steps>li::before{
+  border-color:var(--amber);
+  color:var(--amber);
+}
+
+strong{font-weight:600;color:var(--ink)}
+
+.def{
+  position:relative;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  padding:18px 20px 18px 22px;
+  margin:18px 0;
+  color:var(--ink);
+  font-size:15.5px;
+  line-height:1.58;
+  box-shadow:0 1px 2px rgba(22,22,20,.03);
+  overflow:hidden;
+}
+.def::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:3px;
+  background:linear-gradient(to bottom, var(--mint), var(--mint-soft));
+}
+.def::after{
+  content:"DEF";
+  position:absolute;
+  top:14px;right:16px;
+  font-family:var(--mono);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.12em;
+  color:var(--mint);
+  opacity:.35;
+}
+section.k .def::before{background:linear-gradient(to bottom, var(--amber), var(--amber-soft))}
+section.k .def::after{color:var(--amber)}
+
+.hi{
+  position:relative;
+  background:linear-gradient(135deg, #fdf6e3, #fbf0d4);
+  border:1px solid var(--hi-line);
+  border-radius:12px;
+  padding:15px 18px 15px 44px;
+  margin:18px 0;
+  font-size:15px;
+  line-height:1.55;
+  color:#5a4818;
+  box-shadow:0 1px 2px rgba(160,120,30,.05);
+}
+.hi::before{
+  content:"!";
+  position:absolute;
+  left:15px;top:15px;
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--hi-line);
+  color:#6e560f;
+  border-radius:50%;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  line-height:1;
+}
+.hi b{color:#6e560f;font-weight:600}
+
+/* Tables */
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin:20px 0;
+  font-size:14.5px;
+  font-variant-numeric:tabular-nums;
+  border:1px solid var(--rule);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 1px 2px rgba(22,22,20,.03);
+}
+th,td{
+  padding:12px 16px;
+  text-align:left;
+  vertical-align:top;
+  color:var(--ink-soft);
+}
+td{
+  border-top:1px solid var(--rule-soft);
+}
+thead th{
+  font-family:var(--mono);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--mint);
+  background:var(--mint-tint);
+  padding-top:11px;padding-bottom:11px;
+}
+section.k thead th{color:var(--amber);background:var(--amber-tint)}
+/* zebra striping for readability */
+tbody tr:nth-child(even) td{background:rgba(0,0,0,.012)}
+/* first column emphasis (numbers / labels) */
+tbody td:first-child{
+  font-weight:600;
+  color:var(--ink);
+}
+tbody tr:hover td{background:var(--mint-tint)}
+section.k tbody tr:hover td{background:var(--amber-tint)}
+tbody tr{transition:none}
+td{transition:background var(--dur-fast) var(--ease)}
+
+/* Back-to-top link */
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:28px;
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  text-decoration:none;
+  padding:6px 0;
+  border-bottom:1px solid transparent;
+  transition:all var(--dur) var(--ease);
+}
+.back:hover{
+  color:var(--mint);
+  border-bottom-color:var(--mint);
+}
+section.k .back:hover{
+  color:var(--amber);
+  border-bottom-color:var(--amber);
+}
+
+footer{
+  text-align:center;
+  color:var(--ink-mute);
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-top:80px;
+  padding-top:32px;
+  border-top:1px solid var(--rule);
+}
+
+/* ─────────── SPIRAL MODEL (Schuchardt) ─────────── */
+.spiral{
+  position:relative;
+  margin:18px 0 8px;
+  padding-left:14px;
+}
+.spiral::before{
+  content:"";
+  position:absolute;
+  left:13px;top:14px;bottom:14px;
+  width:2px;
+  background:linear-gradient(to bottom,
+    var(--mint-tint) 0%,
+    var(--mint-soft) 50%,
+    var(--mint) 100%);
+  border-radius:2px;
+}
+.spiral-phase{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  padding:11px 0 11px 0;
+  opacity:0;
+  transform:translateX(-8px);
+  transition:opacity .5s var(--ease-out), transform .5s var(--ease-out);
+}
+.spiral-phase.in{opacity:1;transform:translateX(0)}
+.spiral-phase .sp-num{
+  position:relative;
+  z-index:1;
+  flex-shrink:0;
+  width:28px;height:28px;
+  border-radius:50%;
+  background:var(--paper);
+  border:2px solid var(--mint);
+  color:var(--mint);
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .4s var(--ease);
+  margin-left:-1px;
+}
+.spiral-phase.in .sp-num{
+  background:var(--mint);
+  color:#fff;
+  box-shadow:0 0 0 4px var(--mint-tint);
+}
+.spiral-phase .sp-body{display:flex;flex-direction:column;gap:1px;padding-top:2px}
+.spiral-phase .sp-body strong{font-size:15.5px;color:var(--ink);font-weight:600}
+.spiral-phase .sp-body em{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:14.5px;
+  color:var(--mint);
+  font-variation-settings:"opsz" 24;
+  margin:1px 0 3px;
+}
+.spiral-phase .sp-body span{font-size:14px;color:var(--ink-soft);line-height:1.5}
+
+/* ─────────── CULLBERG (animated living icons) ─────────── */
+.cullberg{
+  display:flex;
+  flex-direction:column;
+  margin:16px 0 8px;
+}
+.cb-phase{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:6px 0;
+}
+.cb-icon{
+  flex-shrink:0;
+  width:48px;height:48px;
+  color:var(--mint);
+  display:flex;align-items:center;justify-content:center;
+}
+.cb-icon svg{width:100%;height:100%;overflow:visible}
+.cb-text{display:flex;flex-direction:column;gap:2px}
+.cb-text strong{font-size:15.5px;color:var(--ink);font-weight:600}
+.cb-text span{font-size:14px;color:var(--ink-soft);line-height:1.5}
+.cb-connector{
+  width:2px;height:14px;
+  background:var(--mint-tint);
+  margin-left:23px;
+}
+
+/* Phase 1 — Schock: slow steady pulse (heartbeat-like, but calm/stunned) */
+.cb-pulse{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  transform-origin:center;
+  animation:cbPulse 2.8s var(--ease) infinite;
+}
+@keyframes cbPulse{
+  0%,100%{opacity:.5;transform:scale(.85)}
+  50%{opacity:.15;transform:scale(1.15)}
+}
+/* Phase 2 — Reaktion: turbulent wave shifting */
+.cb-wave{
+  stroke-dasharray:60;
+  animation:cbWave 2.4s ease-in-out infinite;
+}
+@keyframes cbWave{
+  0%,100%{stroke-dashoffset:0;transform:translateY(0)}
+  50%{stroke-dashoffset:-12;transform:translateY(-1.5px)}
+}
+/* Phase 3 — Bearbeitung: slow rotating gear (working through) */
+.cb-gear{
+  transform-origin:24px 24px;
+  animation:cbSpin 9s linear infinite;
+}
+/* keep the circle static, rotate only the spokes via group not possible here, rotate whole */
+.cb-phase[data-phase="3"] svg{
+  animation:cbSpin 14s linear infinite;
+  transform-origin:center;
+}
+@keyframes cbSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+/* Phase 4 — Neuorientierung: sprout grows + leaf breathes */
+.cb-leaf{
+  transform-origin:24px 24px;
+  animation:cbGrow 4s var(--ease-out) infinite alternate;
+}
+@keyframes cbGrow{
+  0%{transform:scale(.82) rotate(-2deg);opacity:.7}
+  100%{transform:scale(1) rotate(2deg);opacity:1}
+}
+@media (prefers-reduced-motion: reduce){
+  .cb-pulse,.cb-wave,.cb-gear,.cb-leaf,.cb-phase[data-phase="3"] svg{animation:none}
+  .spiral-phase{opacity:1;transform:none}
+}
+
+/* ─────────── SEARCH FIELD ─────────── */
+.search-wrap{
+  position:relative;
+  margin:0 0 28px;
+}
+.search-box{
+  display:flex;align-items:center;gap:11px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:13px;
+  padding:12px 16px;
+  transition:border-color .25s var(--ease), box-shadow .25s var(--ease);
+}
+.search-box:focus-within{
+  border-color:var(--mint-soft);
+  box-shadow:0 0 0 4px var(--mint-tint);
+}
+.search-box svg{width:17px;height:17px;color:var(--ink-mute);flex-shrink:0}
+.search-box input{
+  border:none;outline:none;background:transparent;
+  font-family:var(--sans);font-size:15.5px;color:var(--ink);
+  width:100%;
+}
+.search-box input::placeholder{color:var(--ink-mute)}
+.search-clear{
+  border:none;background:transparent;cursor:pointer;
+  color:var(--ink-mute);font-size:19px;line-height:1;padding:0 2px;
+  display:none;transition:color .2s;
+}
+.search-clear:hover{color:var(--ink)}
+.search-box.has-text .search-clear{display:block}
+.search-results{
+  margin-top:10px;
+  display:none;
+  flex-direction:column;
+  gap:2px;
+  border:1px solid var(--rule);
+  border-radius:13px;
+  overflow:hidden;
+  background:var(--paper);
+}
+.search-results.show{display:flex}
+.search-results a{
+  display:flex;align-items:baseline;gap:10px;
+  padding:11px 16px;
+  text-decoration:none;
+  color:var(--ink);
+  font-size:15px;
+  transition:background .15s var(--ease);
+  border-bottom:1px solid var(--rule-soft);
+}
+.search-results a:last-child{border-bottom:none}
+.search-results a:hover{background:var(--mint-tint)}
+.search-results a .sr-part{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 8px;border-radius:10px;flex-shrink:0;
+}
+.search-results a .sr-part.theorie{color:var(--mint);background:var(--mint-tint)}
+.search-results a .sr-part.krank{color:var(--amber);background:var(--amber-tint)}
+.search-results .sr-empty{
+  padding:14px 16px;color:var(--ink-mute);font-size:14px;font-style:italic;
+}
+
+/* ─────────── SELF-TEST MODE (active recall) ─────────── */
+.recall-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--mint);background:var(--mint-tint);border:none;cursor:pointer;
+  padding:7px 13px;border-radius:18px;transition:all .25s var(--ease);
+  margin:0 0 4px;-webkit-tap-highlight-color:transparent;
+}
+.recall-toggle:hover{background:var(--mint);color:#fff}
+.recall-toggle svg{width:13px;height:13px}
+section.k .recall-toggle{color:var(--amber);background:var(--amber-tint)}
+section.k .recall-toggle:hover{background:var(--amber);color:#fff}
+.recall-toggle .lbl-on{display:none}
+section.recall-active .recall-toggle{background:var(--mint);color:#fff}
+section.k.recall-active .recall-toggle{background:var(--amber);color:#fff}
+section.recall-active .recall-toggle .lbl-off{display:none}
+section.recall-active .recall-toggle .lbl-on{display:inline}
+
+/* hide answers behind a veil when in recall mode */
+section.recall-active ul,
+section.recall-active ol.steps{position:relative;border-radius:10px}
+section.recall-active ul::after,
+section.recall-active ol.steps::after{
+  content:"Tippen zum Aufdecken";
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--mint);
+  background:var(--mint-tint);
+  border:1px dashed var(--mint-soft);
+  border-radius:10px;
+  cursor:pointer;z-index:2;
+  transition:opacity .4s var(--ease-out);
+}
+section.k.recall-active ul::after,
+section.k.recall-active ol.steps::after{
+  color:var(--amber);background:var(--amber-tint);border-color:var(--amber-soft);
+}
+section.recall-active ul.revealed::after,
+section.recall-active ol.steps.revealed::after{opacity:0;pointer-events:none}
+section.recall-active ul:not(.revealed) > li,
+section.recall-active ol.steps:not(.revealed) > li{opacity:0}
+
+@media(prefers-reduced-motion:reduce){
+  .search-box,.recall-toggle{transition:none}
+}
+
+/* ─────────── READING PROGRESS BAR ─────────── */
+.progress{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:2.5px;
+  z-index:50;
+  background:transparent;
+  pointer-events:none;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--mint);
+  transform-origin:left;
+  transition:width .08s linear, background var(--dur) var(--ease);
+  box-shadow:0 0 8px rgba(45,122,86,.4);
+}
+[data-active="krankheit"] ~ .progress .progress-fill,
+.tabs[data-active="krankheit"] + * .progress-fill{
+  background:var(--amber);
+}
+.progress-fill.amber{
+  background:var(--amber);
+  box-shadow:0 0 8px rgba(184,118,62,.4);
+}
+
+/* ─────────── SECTION REVEAL ON SCROLL ─────────── */
+section{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .65s var(--ease-out), transform .65s var(--ease-out);
+}
+section.revealed{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  section{opacity:1;transform:none;transition:none}
+}
+
+/* ─────────── FLOATING QUICK-JUMP RAIL (desktop only) ─────────── */
+.rail{
+  position:fixed;
+  right:22px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:25;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+  padding:14px 6px;
+  max-height:72vh;
+  overflow-y:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.rail::-webkit-scrollbar{display:none}
+@media(min-width:1180px){
+  .rail{display:flex}
+}
+.rail-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--rule);
+  cursor:pointer;
+  transition:all var(--dur) var(--ease);
+  position:relative;
+  flex-shrink:0;
+}
+.rail-dot:hover{background:var(--ink-mute);transform:scale(1.3)}
+.rail-dot.active{
+  background:var(--mint);
+  height:20px;
+  border-radius:3px;
+  box-shadow:0 0 0 3px var(--mint-tint);
+}
+[data-rail-theme="krankheit"] .rail-dot.active{
+  background:var(--amber);
+  box-shadow:0 0 0 3px var(--amber-tint);
+}
+.rail-dot .rail-tip{
+  position:absolute;
+  right:18px;top:50%;
+  transform:translateY(-50%) translateX(4px);
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:500;
+  padding:5px 11px;
+  border-radius:7px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  box-shadow:0 4px 14px rgba(22,22,20,.18);
+}
+.rail-dot:hover .rail-tip{
+  opacity:1;
+  transform:translateY(-50%) translateX(0);
+}
+
+/* ─────────── FLOATING SCROLL-TO-TOP ─────────── */
+.totop{
+  position:fixed;
+  right:20px;
+  bottom:24px;
+  z-index:25;
+  width:44px;height:44px;
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(22,22,20,.22), 0 2px 6px rgba(22,22,20,.14);
+  opacity:0;
+  transform:translateY(12px) scale(.9);
+  pointer-events:none;
+  transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease), background var(--dur) var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.totop.visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.totop:hover{background:var(--mint)}
+.totop svg{width:18px;height:18px}
+@media(min-width:1180px){
+  .totop{right:64px}
+}
+@media(max-width:640px){
+  .totop{width:40px;height:40px;right:16px;bottom:18px}
+}
+
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+  html{scroll-behavior:auto}
+}
+
+/* Selection */
+::selection{background:var(--mint);color:var(--paper)}
+
+/* Native View Transitions (tab switch) — tuned to match the design's easing */
+@media (prefers-reduced-motion: no-preference){
+  ::view-transition-old(root),
+  ::view-transition-new(root){
+    animation-duration:.42s;
+    animation-timing-function:cubic-bezier(.22,.61,.36,1);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+<nav class="rail" id="rail" aria-label="Schnellnavigation" data-rail-theme="theorie"></nav>
+
+<button class="totop" id="toTop" aria-label="Nach oben scrollen">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<div class="wrap">
+<span id="top"></span>
+<header class="top">
+  <div class="eyebrow">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Pflegefachmann · Saarland</span>
+    <span class="sep">/</span>
+    <span>Staatsexamen 2026</span>
+  </div>
+  <h1 class="wordmark">
+    Pflege<span class="ampersand">&amp;</span><span class="line-2">Krankheit.</span>
+  </h1>
+  <div class="byline">
+    <div class="col">
+      <strong>Munavar</strong>
+      Persönliche Lernzusammenfassung
+    </div>
+    <div class="crest" aria-hidden="true">§</div>
+    <div class="col right">
+      <strong>65 Themen</strong>
+      Theorie · Krankheitsbilder
+    </div>
+  </div>
+</header>
+
+<div class="tabs" data-active="theorie" role="tablist">
+  <div class="tabs-track">
+    <div class="tabs-pill" aria-hidden="true"></div>
+    <button class="tab-btn active" data-tab="theorie" role="tab" aria-selected="true">
+      <span class="tab-num">29</span><span class="tab-label">Theorie</span>
+    </button>
+    <button class="tab-btn" data-tab="krankheit" role="tab" aria-selected="false">
+      <span class="tab-num">36</span><span class="tab-label">Krankheitsbilder</span>
+    </button>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box" id="searchBox">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input type="text" id="searchInput" placeholder="Thema suchen … (z. B. Sepsis, Validation, §1827)" autocomplete="off" aria-label="Themen durchsuchen"/>
+    <button class="search-clear" id="searchClear" aria-label="Suche löschen">×</button>
+  </div>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<div id="panel-theorie" class="panel active">
+<nav class="toc"><h3>Teil 1 · Theorie</h3>
+  <ol>
+    <li><a href="#t1">Pflegeprozess</a></li>
+    <li><a href="#t2">ABEDL nach Krohwinkel</a></li>
+    <li><a href="#t3">SIS – Strukturierte Informationssammlung</a></li>
+    <li><a href="#t4">Pflegetheorien</a></li>
+    <li><a href="#t5">Assessments</a></li>
+    <li><a href="#t6">Dokumentation</a></li>
+    <li><a href="#t7">Prophylaxen</a></li>
+    <li><a href="#t8">Kommunikation</a></li>
+    <li><a href="#t9">Ethik</a></li>
+    <li><a href="#t10">Beratung</a></li>
+    <li><a href="#t11">Schulung</a></li>
+    <li><a href="#t12">Anleitung</a></li>
+    <li><a href="#t13">Trajekt-Modell nach Corbin und Strauss</a></li>
+    <li><a href="#t14">Krisenmodelle</a></li>
+    <li><a href="#t15">Stressmodell nach Lazarus</a></li>
+    <li><a href="#t16">Pharmakologie</a></li>
+    <li><a href="#t17">Mangelernährung</a></li>
+    <li><a href="#t18">Adipositas</a></li>
+    <li><a href="#t19">Palliativpflege</a></li>
+    <li><a href="#t20">Recht</a></li>
+    <li><a href="#t21">Gesundheitsförderung &amp; Prävention</a></li>
+    <li><a href="#t22">Pflegecharta</a></li>
+    <li><a href="#t23">EACH-Charta</a></li>
+    <li><a href="#t24">Familienorientierte Pflege</a></li>
+    <li><a href="#t25">Interdisziplinäre Zusammenarbeit</a></li>
+    <li><a href="#t26">Delegation</a></li>
+    <li><a href="#t27">SBAR-Übergabe</a></li>
+    <li><a href="#t28">Expertenstandards</a></li>
+    <li><a href="#t29">Begutachtung durch den Medizinischen Dienst (NBA)</a></li>
+  </ol></nav>
+
+<section id="t1">
+  <h2 class="sec"><span class="n">1</span> Pflegeprozess</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Für eine zielgerechte, strukturierte Arbeitsweise. Er sichert eine planbare, individuelle und nachvollziehbare Pflege.</p>
+  
+  <h3 class="sub">Die 6 Schritte</h3>
+  <ol class="steps">
+    <li><strong>Informationssammlung:</strong> Subjektive und objektive Informationen werden gesammelt. ABEDL und SIS als Werkzeug.</li>
+    <li><strong>Probleme und Ressourcen erkennen:</strong> Was kann der Patient noch, was kann der Patient nicht mehr? Aktuelle, potenzielle, allgemeine und individuelle Probleme. Körperliche, innerliche, räumliche, ökonomische, spirituelle und soziale Ressourcen.</li>
+    <li><strong>Pflegeziel festlegen:</strong> Ziel = Zustand des Patienten. SMART als Werkzeug.</li>
+    <li><strong>Maßnahmen planen:</strong> 6 W, immer begründen.</li>
+    <li><strong>Durchführung:</strong> Maßnahmen umsetzen, dokumentieren.</li>
+    <li><strong>Evaluation:</strong> Überprüfung der Ergebnisse des Pflegeprozesses, um Qualität und Wirksamkeit zu prüfen und kontinuierlich zu verbessern. Zielerreichung? Ursache? Anpassung?</li>
+  </ol>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t2">
+  <h2 class="sec"><span class="n">2</span> ABEDL nach Krohwinkel</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Aktivitäten, Beziehungen und existenzielle Erfahrungen des Lebens. Fördernde Prozesspflege bzw. aktivierende Pflege. Der Mensch wird ganzheitlich betrachtet.</p>
+  <ol class="steps">
+    <li>Kommunizieren</li><li>Sich bewegen</li><li>Vitale Funktionen aufrechterhalten</li><li>Sich pflegen</li><li>Essen und trinken</li><li>Ausscheiden</li><li>Ruhen und schlafen</li><li>Sich beschäftigen</li><li>Sich an- und auskleiden</li><li>Sich als Mann oder Frau fühlen</li><li>Leben in sozialen Beziehungen sichern können</li><li>Für eine sichere und fördernde Umgebung sorgen können</li><li>Mit existenziellen Erfahrungen des Lebens umgehen können</li>
+  </ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t3">
+  <h2 class="sec"><span class="n">3</span> SIS – Strukturierte Informationssammlung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">4 Felder</h3>
+  <ol class="steps">
+    <li><strong>Stammdaten</strong></li>
+    <li><strong>Eigeneinschätzung des Patienten</strong> (Zitat): „Was bewegt Sie gerade?"</li>
+    <li><strong>Fachliche Einschätzung der Pflegefachkraft</strong> – dokumentiert die objektiven Sachverhalte.</li>
+    <li><strong>Risikomatrix</strong></li>
+  </ol>
+
+  <h3 class="sub">Fachliche Einschätzung – 6 Themenfelder</h3>
+  <ol class="steps">
+    <li>Kognition und Kommunikation</li><li>Mobilität und Bewegung</li><li>Krankheitsbezogene Anforderungen</li><li>Selbstversorgung</li><li>Leben in sozialen Beziehungen</li><li>Wohnen / Häuslichkeit</li>
+  </ol>
+  <div class="hi"><b>Risikoeinschätzung:</b> Dekubitus, Sturz, Schmerz, Inkontinenz, Mangelernährung</div>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t4">
+  <h2 class="sec"><span class="n">4</span> Pflegetheorien</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead"><strong>3 Modellkategorien:</strong> Bedürfnismodell, Interaktionsmodell, Ergebnismodell.</p>
+
+  <h3 class="sub">Henderson</h3>
+  <p>14 Grundbedürfnisse.</p>
+
+  <h3 class="sub">Orem – Selbstpflegedefizit-Theorie</h3>
+  <p><strong>Grundidee:</strong> Jeder Mensch ist grundsätzlich fähig zur Selbstpflege. Wenn ein Defizit entsteht (Krankheit, Alter, Behinderung), greift die Pflege ein – aber nur so viel wie nötig, so wenig wie möglich.</p>
+  <h4 class="subsub">3 Selbstpflegeerfordernisse</h4>
+  <ul>
+    <li><strong>Universelle:</strong> Atmen, Essen, Trinken, Ausscheiden, Ruhe – allgemein für alle Menschen</li>
+    <li><strong>Entwicklungsbedingte:</strong> je nach Lebensphase (Kind, Erwachsener, alter Mensch)</li>
+    <li><strong>Gesundheitsbedingte:</strong> bei Krankheit oder Behinderung</li>
+  </ul>
+  <h4 class="subsub">3 Pflegesysteme (je nach Selbstpflegefähigkeit)</h4>
+  <ul>
+    <li><strong>Voll kompensatorisch:</strong> Pflegekraft übernimmt komplett (z.B. Koma, schwere OP)</li>
+    <li><strong>Teilkompensatorisch:</strong> Pflegekraft und Patient teilen sich die Aufgaben (z.B. nach Schlaganfall)</li>
+    <li><strong>Unterstützend-erzieherisch:</strong> Patient pflegt sich selbst, Pflegekraft berät und schult (z.B. Diabetes-Schulung)</li>
+  </ul>
+
+  <h3 class="sub">Peplau (psychodynamisches / interpersonales Beziehungsmodell)</h3>
+  <p>Orientierungsphase → Identifikationsphase → Nutzungsphase → Ablösungsphase.</p>
+
+  <h3 class="sub">RLT-Modell (Roper, Logan, Tierney)</h3>
+  <p><strong>Grundlage:</strong> Aktivitäten des täglichen Lebens (ATL) – orientiert sich daran, was Menschen täglich tun, um zu leben.</p>
+  <h4 class="subsub">Die 5 Komponenten des Modells</h4>
+  <ol class="steps">
+    <li>Lebensspanne</li>
+    <li>12 ATLs</li>
+    <li>Abhängigkeits-/Unabhängigkeitskontinuum</li>
+    <li>Einflussfaktoren</li>
+    <li>Pflegeprozess</li>
+  </ol>
+
+  <h4 class="subsub">1. Die Lebensspanne</h4>
+  <ul>
+    <li>Von der Geburt bis zum Tod</li>
+    <li>Pflegebedarf verändert sich je nach Lebensphase</li>
+    <li>Kind, Erwachsener, alter Mensch – unterschiedliche ATL-Fähigkeiten</li>
+  </ul>
+
+  <h4 class="subsub">2. Das Abhängigkeits-/Unabhängigkeitskontinuum</h4>
+  <ul>
+    <li>Jede ATL wird auf einem Spektrum eingeschätzt: total abhängig ←→ total unabhängig</li>
+    <li>Ziel der Pflege: Unabhängigkeit fördern oder Abhängigkeit kompensieren</li>
+    <li>Verändert sich durch Krankheit, Alter, Genesung</li>
+  </ul>
+
+  <h4 class="subsub">3. Die Einflussfaktoren auf die ATLs</h4>
+  <table>
+    <thead><tr><th>Faktor</th><th>Beispiel</th></tr></thead>
+    <tbody>
+      <tr><td>Biologisch</td><td>Alter, Krankheit, Körperfunktionen</td></tr>
+      <tr><td>Psychologisch</td><td>Angst, Motivation, Selbstbild</td></tr>
+      <tr><td>Soziokulturell</td><td>Familie, Religion, Kultur</td></tr>
+      <tr><td>Umweltbezogen</td><td>Wohnsituation, Klima, Infrastruktur</td></tr>
+      <tr><td>Politisch-ökonomisch</td><td>Versicherung, Einkommen, Gesetze</td></tr>
+    </tbody>
+  </table>
+
+  <h4 class="subsub">4. Die 12 ATLs</h4>
+  <table>
+    <thead><tr><th>Nr.</th><th>ATL</th><th>Beispiele in der Pflege</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Für eine sichere Umgebung sorgen</td><td>Sturzprophylaxe, Infektionsschutz</td></tr>
+      <tr><td>2</td><td>Kommunizieren</td><td>Sprache, Mimik, Hören, Demenz</td></tr>
+      <tr><td>3</td><td>Atmen</td><td>Sauerstoffgabe, Inhalation</td></tr>
+      <tr><td>4</td><td>Essen und Trinken</td><td>Ernährungsassessment, Schlucken</td></tr>
+      <tr><td>5</td><td>Ausscheiden</td><td>Kontinenz, Inkontinenzversorgung</td></tr>
+      <tr><td>6</td><td>Sich sauber halten &amp; kleiden</td><td>Körperpflege, Hautpflege</td></tr>
+      <tr><td>7</td><td>Körpertemperatur regulieren</td><td>Fieber, Hypothermie</td></tr>
+      <tr><td>8</td><td>Sich bewegen</td><td>Mobilisation, Lagerung</td></tr>
+      <tr><td>9</td><td>Arbeiten und Spielen</td><td>Beschäftigung, Rehabilitation</td></tr>
+      <tr><td>10</td><td>Sexualität ausdrücken</td><td>Identität, Intimsphäre wahren</td></tr>
+      <tr><td>11</td><td>Schlafen</td><td>Schlafqualität, Schlafstörungen</td></tr>
+      <tr><td>12</td><td>Sterben</td><td>Palliativpflege, Würde</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Psychobiographisches Modell nach Erwin Böhm</h3>
+  <p><strong>Grundidee:</strong> „Erst die Seele, dann den Körper pflegen." Verhalten alter und an Demenz erkrankter Menschen wird durch ihre Biographie geprägt – frühere Prägungen bestimmen das heutige Erleben.</p>
+  <p><strong>Ziel:</strong> Reaktivierung statt Versorgung – verlorene Fähigkeiten durch biographische Anknüpfung wieder zugänglich machen.</p>
+  <h4 class="subsub">Die 5 Schritte (Pflegeprozess nach Böhm)</h4>
+  <table>
+    <thead><tr><th>Schritt</th><th>Inhalt</th></tr></thead>
+    <tbody>
+      <tr><td>1. Biografiearbeit</td><td>Lebensgeschichte erfassen (Beruf, Rituale, Gewohnheiten)</td></tr>
+      <tr><td>2. Psychobiografisches Pflegemodell</td><td>Regressionsstufe einschätzen, Pflege daran anpassen</td></tr>
+      <tr><td>3. Milieutherapie</td><td>Vertraute Umgebung gestalten (Gegenstände, Musik, Gerüche)</td></tr>
+      <tr><td>4. Aktivierende Pflege</td><td>Vorhandene Fähigkeiten nutzen &amp; fördern – nicht abnehmen</td></tr>
+      <tr><td>5. Emotionale Stabilisierung</td><td>Sicherheit &amp; Wohlbefinden durch Vertrautes schaffen</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Pflegerische Konsequenz:</strong> Biographiearbeit ist Pflicht – Sprache, Rituale, Dialekt, Lieblingsessen des Patienten kennen und nutzen.</p>
+
+  <h4 class="subsub">Die 7 Erreichbarkeitsstufen (Zugang zur Erlebniswelt)</h4>
+  <table>
+    <thead><tr><th>Stufe</th><th>Pflegerische Handlung</th></tr></thead>
+    <tbody>
+      <tr><td>1. Sozialisation</td><td>Normale Erwachsenenkommunikation, gewöhnliches Gespräch führen</td></tr>
+      <tr><td>2. Mutterwitz / Humor</td><td>Über Humor, Sprichwörter und Dialekt ansprechen</td></tr>
+      <tr><td>3. Seelische, soziale Grundbedürfnisse</td><td>Trost, Nähe und Geborgenheit anbieten</td></tr>
+      <tr><td>4. Prägungen</td><td>Vertraute Rituale nutzen (z.B. Gebet, feste Abläufe)</td></tr>
+      <tr><td>5. Trieb / Antrieb</td><td>Grundbedürfnisse erfüllen (Essen, Zuneigung) – „fördern durch fordern"</td></tr>
+      <tr><td>6. Intuition</td><td>Märchen, Religion und vertraute Geschichten einsetzen</td></tr>
+      <tr><td>7. Urkommunikation</td><td>Über Körperkontakt, Stimme und Berührung erreichen (Basale Stimulation)</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Personzentrierter Ansatz nach Tom Kitwood</h3>
+  <p><strong>Grundidee:</strong> Der Mensch mit Demenz steht im Mittelpunkt – nicht die Erkrankung. Würde, Identität und Wohlbefinden bleiben erhalten, auch wenn kognitive Fähigkeiten verloren gehen.</p>
+  <p><strong>Personsein bewahren</strong> ist das oberste Ziel.</p>
+  <h4 class="subsub">5 psychische Grundbedürfnisse (Kitwood-Blume)</h4>
+  <ul>
+    <li><strong>Bindung</strong> – Vertrauen, Sicherheit durch verlässliche Bezugspersonen</li>
+    <li><strong>Trost</strong> – Nähe, Geborgenheit bei Verlust oder Angst</li>
+    <li><strong>Einbeziehung</strong> – Teil einer Gruppe sein, nicht isoliert</li>
+    <li><strong>Beschäftigung</strong> – sinnvolle Tätigkeit, eigene Fähigkeiten einbringen</li>
+    <li><strong>Identität</strong> – wissen wer man ist, durch Biographiearbeit gestützt</li>
+  </ul>
+  <p>Im Zentrum: <strong>Liebe</strong> – die Haltung, mit der alle 5 Bedürfnisse gepflegt werden.</p>
+  <h4 class="subsub">Malignes Sozialpsychologisches Verhalten (was man NICHT tun darf)</h4>
+  <ul>
+    <li>Bevormunden, Entmündigen, Etikettieren</li>
+    <li>Ignorieren, Objektifizieren, über den Patienten hinwegreden</li>
+    <li>Tempo aufzwingen, bloßstellen</li>
+  </ul>
+  <h4 class="subsub">Positive Pflege</h4>
+  <ul>
+    <li>Anerkennen, Verhandeln, Zusammenarbeiten</li>
+    <li>Validieren, Halten, Feiern kleiner Erfolge</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t5">
+  <h2 class="sec"><span class="n">5</span> Assessments</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">a. Dekubitus</h3>
+  <p>Zur Früherkennung – wird bei Aufnahme und bei Zustandsänderungen durchgeführt.</p>
+  <p><strong>Braden:</strong> sensorisches Empfinden, Feuchtigkeit, Aktivität, Mobilität, Ernährung, Reibung und Scherkräfte. Ab ≤ 18 Risiko (hohes Risiko bei niedrigen Werten).</p>
+  <p><strong>Norton:</strong> körperlicher Zustand, geistiger Zustand, Aktivität, Mobilität, Inkontinenz.</p>
+
+  <h3 class="sub">b. Sturz</h3>
+  <p><strong>Morse Fall Scale</strong> – Grundlage für das Sturzmanagement: Sturzanamnese, Sekundärdiagnose, Gehhilfe, i.v.-Zugang, Gang-/Gleichgewichtsstörung, Kognition.</p>
+  <h4 class="subsub">Sturz-Sofortmaßnahmen</h4>
+  <ul><li>Ruhe bewahren</li><li>Patient nicht sofort aufheben</li><li>Vitalzeichenkontrolle</li><li>Verletzungen inspizieren und Schmerzen erfragen</li><li>Arzt informieren</li><li>Dokumentieren und Sturzprotokoll</li><li>Sturzassessment wiederholen</li><li>Maßnahmen anpassen</li><li>Angehörige informieren</li></ul>
+
+  <h3 class="sub">c. Barthel-Index</h3>
+  <p>Assessment für Selbständigkeit: essen, aufsetzen/umsetzen, waschen, duschen, Toilette benutzen, gehen auf Ebene, Treppensteigen, an-/ausziehen, Harnkontrolle, Stuhlkontrolle.</p>
+
+  <h3 class="sub">d. Schmerzassessment</h3>
+  <ul>
+    <li><strong>NRS 0–10:</strong> für kognitiv nicht eingeschränkte Patienten, die verbal kommunizieren können.</li>
+    <li><strong>VAS:</strong> 10-cm-Linie, auch für Patienten, die kognitiv nicht eingeschränkt sind, aber lieber visuell kommunizieren.</li>
+    <li><strong>BESD:</strong> für Demenzpatienten oder kognitiv eingeschränkte Patienten, die nicht verbal kommunizieren können.</li>
+    <li><strong>Wong-Baker Smiley-Skala:</strong> für Kinder ab 4 Jahren.</li>
+    <li><strong>KUSS-Skala:</strong> für Neugeborene bis 4 Jahre.</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t6">
+  <h2 class="sec"><span class="n">6</span> Dokumentation</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <ul><li>Rechtliche Absicherung</li><li>Qualitätssicherung</li><li>Beweismittel</li><li>Kontinuität der Pflege</li><li>Interdisziplinäre Zusammenarbeit</li><li>Kontinuierliche Verbesserung und Anpassung der Pflegeprozesse</li></ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t7">
+  <h2 class="sec"><span class="n">7</span> Prophylaxen</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Dekubitus</h3>
+  <div class="def">Lokale, begrenzte Hautschädigung der Haut oder des darunterliegenden Gewebes, die durch Druck und die dadurch entstehende Minderdurchblutung verursacht wird.</div>
+  <h4 class="subsub">4 Stadien</h4>
+  <ol class="steps"><li>Nicht wegdrückbare Rötung</li><li>Blasenbildung</li><li>Tiefer Krater, sichtbares Unterhautgewebe</li><li>Sichtbare Knochen, Sehnen, Muskelgewebe</li></ol>
+  <h4 class="subsub">Maßnahmen</h4>
+  <ul><li>Lagerung und Druckentlastung</li><li>Ausreichende Flüssigkeitszufuhr</li><li>Hilfsmittel, Wechseldruckmatratze</li><li>Hautpflege, Hautinspektion</li><li>Eiweißzufuhr</li><li>Mobilisation, aktivierende Pflege</li><li>Patient und Angehörige informieren und beraten</li></ul>
+
+  <h3 class="sub">Sturzprophylaxe</h3>
+  <div class="def">Ein Ereignis, bei dem eine Person unbeabsichtigt auf dem Boden oder einer tieferen Ebene landet. Ursachen: intrinsische und extrinsische Risikofaktoren. Screening + bei Bedarf Assessment.</div>
+  <h4 class="subsub">Maßnahmen</h4>
+  <ul><li>Umgebungsanpassung</li><li>Hilfsmittel</li><li>Patientenbegleitung</li><li>Information und Schulung</li><li>Dokumentation</li></ul>
+
+  <h3 class="sub">Pneumonieprophylaxe</h3>
+  <div class="def">Eine Lungenentzündung, die durch eingeatmete Bakterien, Viren oder andere Erreger in den Bronchialästen und im Lungengewebe entsteht.</div>
+  <p><strong>Ursachen:</strong> Bettlägerigkeit/Immobilität, Dysphagie, Sedierung, chronische Lungenerkrankung, Herzerkrankung, Beatmung, hohes Alter, Immunschwäche, Rauchen.</p>
+  <p><strong>Symptome:</strong> Fieber, Schüttelfrost, produktiver Husten mit grünlich-gelblichem Auswurf, plötzliche Atemnot, Tachypnoe, Abgeschlagenheit, Verwirrtheit, SpO₂ niedrig, HF erhöht.</p>
+  <h4 class="subsub">Pflegemaßnahmen – LISA-Prinzip</h4>
+  <ol class="steps">
+    <li><strong>Lunge belüften:</strong> Atemübungen, Oberkörperhochlagerung, VATI-Lagerung</li>
+    <li><strong>Infektion vermeiden:</strong> Handhygiene, Mundpflege, Schutzimpfungen</li>
+    <li><strong>Sekret lösen:</strong> Inhalation, atemstimulierende Einreibung, Flüssigkeitszufuhr, Abhusten unterstützen</li>
+    <li><strong>Aspiration vermeiden:</strong> aufrechte Sitzposition, Schlucken beobachten</li>
+  </ol>
+  <p>Weitere: Rauchstopp.</p>
+
+  <h3 class="sub">Thromboseprophylaxe</h3>
+  <div class="def">Es handelt sich darum, dass durch ein Blutgerinnsel ein Blutgefäß verengt oder verschlossen wird.</div>
+  <h4 class="subsub">Ursachen – Virchow-Trias</h4>
+  <ol class="steps"><li>Verlangsamter Blutfluss: Bettlägerigkeit, langes Sitzen</li><li>Gefäßwandschädigung: OP, Entzündung, Trauma</li><li>Veränderte Blutgerinnung: Schwangerschaft, Pilleneinnahme, Gerinnungsstörung</li></ol>
+  <p><strong>Symptome:</strong> Schwellung, Rötung, Überwärmung, Schmerzen in der Wade beim Gehen, Homans-Zeichen (Schmerzen bei der Dorsalflexion des Fußes), Spannungsgefühl in den Beinen.</p>
+  <h4 class="subsub">Pflegemaßnahmen</h4>
+  <ul><li>Frühzeitige Mobilisation: Übungen im Bett, Fersen heben, Beine nicht überkreuzen</li><li>Kompressionstherapie</li><li>Ausreichende Flüssigkeitszufuhr</li><li>Beine hochlagern</li><li>Lange Immobilisation vermeiden</li><li>Patient und Angehörige über Thrombosezeichen informieren</li></ul>
+
+  <h3 class="sub">Kontrakturprophylaxe</h3>
+  <div class="def">Es handelt sich um versteifende Gelenke, eine Funktionsstörung der Extremitäten oder einen gesteigerten Widerstand gegen passive Muskeldehnung.</div>
+  <p><strong>Ursachen:</strong> Bettlägerigkeit, Immobilität, Unbeweglichkeit von 4 bis 14 Tagen, neurologische Erkrankung, Gelenkerkrankung, Schonhaltung wegen Schmerzen.</p>
+  <p><strong>Symptome:</strong> schmerzhafte Bewegung, kann Gelenke nicht beugen oder strecken, sichtbare Zwangshaltung.</p>
+  <h4 class="subsub">Expertenstandard: Erhaltung und Förderung der Mobilität</h4>
+  <ol class="steps"><li>Einschätzen</li><li>Planen</li><li>Informieren und beraten</li><li>Anbieten und durchführen</li><li>Überprüfen und neu einschätzen</li></ol>
+  <h4 class="subsub">Maßnahmen</h4>
+  <ul>
+    <li><strong>Aktive Bewegungsübungen:</strong> Schulter, Ellenbogen, Handgelenk, Finger durchbewegen; Fußkreisen, Fersen heben, Knie beugen und strecken, Finger spreizen und zusammendrücken.</li>
+    <li><strong>Passive Bewegungsübungen:</strong> nur nach ärztlicher Anordnung, mit beiden Händen, langsam und vorsichtig, niemals über die Schmerzgrenze hinaus, Atemrhythmus beachten.</li>
+    <li><strong>Lagerung und Funktionsstellung:</strong> Gelenke in Mittelstellung lagern, Hohlräume unterstützen, Spitzfußprophylaxe.</li>
+    <li><strong>Frühmobilisation und Aktivierung:</strong> sobald möglich aufsetzen, aufstehen, gehen; aktivierende Pflege, Physiotherapeut einbeziehen.</li>
+    <li><strong>Schmerzmanagement:</strong> Schmerzen lindern, Kälte- und Wärmeanwendung.</li>
+  </ul>
+
+  <h3 class="sub">Intertrigoprophylaxe</h3>
+  <div class="def">Eine Entzündung der Haut, die durch mechanische Reibung der Hautflächen und durch Feuchtigkeit verursacht wird.</div>
+  <p><strong>Ursachen:</strong> übermäßiges Schwitzen, Übergewicht, Diabetes mellitus, HIV, Chemotherapie, Kortikosteroide, Hitze und Luftfeuchtigkeit.</p>
+  <p><strong>Symptome:</strong> leichte Rötung bis leuchtend-glänzende Rötung, Juckreiz, brennende Schmerzen, sekundäre Infektionen durch Candida-Pilze.</p>
+  <h4 class="subsub">Pflegemaßnahmen</h4>
+  <ul>
+    <li><strong>Hautreinigung:</strong> nicht reiben, sondern sanft tupfen; pH-neutrales Produkt, klares lauwarmes Wasser, gründlich und schonend reinigen.</li>
+    <li><strong>Hautpflege und trocken halten:</strong> gründlich trocknen, keine Puder auftragen, bei Pilzbefall keine Hautschutzcreme.</li>
+    <li><strong>Hauttrennung:</strong> weiche Vlieskompressen zwischen die Hautfalten legen.</li>
+    <li>Feuchtigkeitsabtransportierende, eng anliegende, luftdurchlässige Kleidung; Licht und Luft an die Haut lassen.</li>
+    <li>Beratung und Schulung, Gewichtsreduktion, Ess- und Trinkverhalten, Hautpflegeroutine gemeinsam planen.</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t8">
+  <h2 class="sec"><span class="n">8</span> Kommunikation</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">1. Watzlawick – 5 Axiome</h3>
+  <ul><li>Man kann nicht nicht kommunizieren</li><li>Kommunikation hat einen Inhalts- und einen Beziehungsaspekt</li><li>Kommunikation ist immer Ursache und Wirkung</li><li>Es gibt digitale und analoge Kommunikation</li><li>Kommunikation ist komplementär oder symmetrisch</li></ul>
+
+  <h3 class="sub">2. 4-Ohren-Modell nach Schulz von Thun</h3>
+  <p>Jede Nachricht hat 4 Botschaften: Sachinhalt, Selbstoffenbarung, Beziehung, Appell.</p>
+
+  <h3 class="sub">3. Rogers</h3>
+  <p>Empathie, Kongruenz, Akzeptanz.</p>
+
+  <h3 class="sub">4. Motivationsgespräche</h3>
+  <p>Empathie, Diskrepanz, Widerstand aufnehmen, Selbstwirksamkeit fördern.</p>
+  <p><strong>OARS:</strong> offene Fragen, Affirm, Reflektieren, Summarize.</p>
+
+  <h3 class="sub">5. Validation nach Naomi Feil</h3>
+  <p>Menschen mit Demenz in ihrer subjektiven Realität anerkennen und wertschätzen. Sie erklärt, dass viele Menschen mit Demenz sterben, weil sie die alltäglichen Aktivitäten nicht mehr machen können.</p>
+  <p><strong>Grundlagen:</strong> nicht korrigieren, nicht lügen, Gefühle spiegeln, eigene Gefühle nicht zeigen, nonverbale Kommunikation, Biografiearbeit.</p>
+
+  <h3 class="sub">6. Aphasie</h3>
+  <p>Eine erworbene Sprachstörung, bei der die Wörter nicht ausgedrückt und/oder nicht verstanden werden können – verursacht durch eine Hirnschädigung.</p>
+  <p>Wichtig: langsam, deutlich und mit kurzen Sätzen sprechen, Zeit lassen, nicht für die Patienten sprechen, keinen Druck zeigen, nonverbale Kommunikation nutzen, bei Erfolg loben, geschlossene Fragen stellen.</p>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t9">
+  <h2 class="sec"><span class="n">9</span> Ethik</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead"><strong>Nach Beauchamp und Childress:</strong></p>
+  <ol class="steps"><li>Autonomie</li><li>Beneficence (Benefizienz)</li><li>Non-Maleficence (Non-Malefizienz)</li><li>Justice (Gerechtigkeit)</li></ol>
+  <p>ICN-Ethikkodex als Grundlage. Bei einem Dilemma: anderen Zeitpunkt auswählen, Gespräche suchen, bei schwerwiegenden Situationen Ethikkommission einbeziehen.</p>
+  
+  <h3 class="sub">Patientenverfügung</h3>
+  <div class="def">Schriftliche Willenserklärung des Patienten für den Fall, dass er oder sie nicht mehr einwilligungsfähig ist. Kann jederzeit widerrufen werden. Enthält Wünsche zu lebensrettender Behandlung, Ablehnung medizinischer Behandlung, Organspende und Sterbebegleitung. Es wird kein Notar benötigt.</div>
+
+  <h3 class="sub">Vorsorgevollmacht</h3>
+  <div class="def">Der Patient bevollmächtigt eine andere Person, für ihn zu entscheiden, falls er nicht mehr einwilligungsfähig ist. Diese Person entscheidet für den Patienten.</div>
+
+  <h3 class="sub">Betreuungsverfügung</h3>
+  <div class="def">Bei Antrag einer Betreuung durch das Gericht. Das Gericht entscheidet für den Patienten.</div>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t10">
+  <h2 class="sec"><span class="n">10</span> Beratung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Jeder Versicherte hat Anspruch auf eine pflegerische, neutrale Beratung. Jede pflegebedürftige Person hat Anspruch auf eine individuelle pflegerische Beratung nach § 7a SGB XI. Es ist eine Informationsvermittlung.</p>
+  <ol class="steps"><li>Beziehung aufbauen</li><li>Beratungsbedarf erfassen</li><li>Information geben</li><li>Gemeinsam Lösung finden und planen</li><li>Maßnahmen vereinbaren</li><li>Nachbesprechung, Evaluierung</li></ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t11">
+  <h2 class="sec"><span class="n">11</span> Schulung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Eine systematische Wissensvermittlung.</p>
+  <ol class="steps"><li>Lernziele festlegen</li><li>Wissensstand erfassen</li><li>Inhalte vermitteln</li><li>Üben</li><li>Überprüfen</li><li>Dokumentieren</li></ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t12">
+  <h2 class="sec"><span class="n">12</span> Anleitung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Sie befähigt den Patienten oder Angehörige, eine konkrete pflegerische Tätigkeit auszuführen.</p>
+  <ol class="steps"><li>Demonstration</li><li>Zusammen üben mit dem Patienten oder Angehörigen</li><li>Patienten oder Angehörige selbstständig üben lassen</li><li>Feedback geben</li><li>Wiederholen bis Sicherheit erreicht ist</li></ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t13">
+  <h2 class="sec"><span class="n">13</span> Trajekt-Modell nach Corbin und Strauss</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Jede chronische Erkrankung hat einen individuellen Verlauf in Phasen. Die Pflege muss sich daran anpassen. Biographie, soziales Umfeld und Ressourcen aktiv einbeziehen.</p>
+  <p><strong>Bewältigungsbereiche:</strong> krankheitsbezogen, alltagsbezogen, biographiebezogen.</p>
+  
+  <h3 class="sub">Phasen</h3>
+  <ul>
+    <li><strong>Präklinisch:</strong> noch keine Symptome, Prävention möglich</li>
+    <li><strong>Diagnostisch:</strong> erste Symptome, Diagnosestellung</li>
+    <li><strong>Akut:</strong> Krankenhausaufenthalt nötig</li>
+    <li><strong>Krise:</strong> lebensbedrohliche Situation, Notfall</li>
+    <li><strong>Instabil:</strong> unkontrollierte Symptome, häufige Anpassung nötig</li>
+    <li><strong>Stabil:</strong> kontrollierter Verlauf durch Therapie und Pflege</li>
+    <li><strong>Verfall:</strong> fortschreitende Verschlechterung trotz Interventionen</li>
+    <li><strong>Sterben:</strong> Palliativphase, Begleitung bis zum Tod</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t14">
+  <h2 class="sec"><span class="n">14</span> Krisenmodelle</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+
+  <h3 class="sub">Spiralmodell nach Erika Schuchardt (8 Phasen)</h3>
+  <p class="lead">Modell zur Bewältigung schwerer Krisen (Krankheit, Behinderung, Verlust). Die Phasen müssen nicht linear durchlaufen werden, Rückfälle sind möglich.</p>
+  <div class="spiral">
+    <div class="spiral-phase" data-stage="1"><span class="sp-num">1</span><div class="sp-body"><strong>Ungewissheit</strong><em>„Was ist eigentlich los?"</em><span>Erste Vorahnung, Verunsicherung oder Konfrontation mit einer vagen Diagnose. Suche nach Klarheit und Informationen.</span></div></div>
+    <div class="spiral-phase" data-stage="2"><span class="sp-num">2</span><div class="sp-body"><strong>Gewissheit</strong><em>„Ja, aber das darf nicht wahr sein."</em><span>Die Realität bricht herein und wird zur Gewissheit. Verleugnung der Situation als Schutzmechanismus der Psyche.</span></div></div>
+    <div class="spiral-phase" data-stage="3"><span class="sp-num">3</span><div class="sp-body"><strong>Aggression</strong><em>„Warum gerade ich?"</em><span>Aufkommen starker Emotionen: Wut, Zorn, Protest. Suche nach Schuldigen (Ärzte, Schicksal, Gott, Partnerauflehnung).</span></div></div>
+    <div class="spiral-phase" data-stage="4"><span class="sp-num">4</span><div class="sp-body"><strong>Verhandeln</strong><em>„Wenn …, dann muss aber …"</em><span>Versuch mit dem Schicksal oder Medizinern zu feilschen. Hoffnung auf Wunderheilung, um die Realität abzuwenden.</span></div></div>
+    <div class="spiral-phase" data-stage="5"><span class="sp-num">5</span><div class="sp-body"><strong>Depression</strong><em>„Es ist alles sinnlos."</em><span>Einbruch der Realität, Trauer, Erschöpfung und Rückzug. Gefühl der Hilflosigkeit und des tiefen Schmerzes.</span></div></div>
+    <div class="spiral-phase" data-stage="6"><span class="sp-num">6</span><div class="sp-body"><strong>Annahme</strong><em>„Ich erkenne mich neu."</em><span>Akzeptanz der veränderten Lebenssituation. Aktivierung innerer Kräfte und Entdeckung neuer Identitätspotenziale.</span></div></div>
+    <div class="spiral-phase" data-stage="7"><span class="sp-num">7</span><div class="sp-body"><strong>Aktivität</strong><em>„Ich handle selbst."</em><span>Konstruktive Auseinandersetzung mit der Situation. Erprobung neuer Verhaltensweisen, Therapien und Alltagsstrategien.</span></div></div>
+    <div class="spiral-phase" data-stage="8"><span class="sp-num">8</span><div class="sp-body"><strong>Solidarität</strong><em>„Wir handeln gemeinsam."</em><span>Integration der Krise in das eigene Leben. Engagement in Selbsthilfegruppen, Einsatz für andere Betroffene und gesellschaftliches Handeln.</span></div></div>
+  </div>
+
+  <h3 class="sub">Sterbephasen nach Elisabeth Kübler-Ross (5 Phasen)</h3>
+  <ol class="steps">
+    <li><strong>Nicht-Wahrhaben-Wollen</strong> – Verleugnung der Diagnose als Schutzmechanismus</li>
+    <li><strong>Aggression</strong> – Wut, Schuldsuche bei Ärzten, Angehörigen, Schicksal</li>
+    <li><strong>Verhandeln</strong> – Versuch mit Schicksal/Gott zu feilschen, Hoffnung auf Wunder</li>
+    <li><strong>Depression</strong> – Trauer, Rückzug, Hilflosigkeit</li>
+    <li><strong>Akzeptanz</strong> – Annahme der Situation, innere Ruhe, Abschied</li>
+  </ol>
+
+  <h3 class="sub">Krisenphasen nach Cullberg (4 Phasen)</h3>
+  <p>Modell für akute traumatische Krisen (plötzlicher Verlust, schlechte Diagnose, Unfall).</p>
+  <div class="cullberg">
+    <div class="cb-phase" data-phase="1">
+      <div class="cb-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><circle class="cb-pulse" cx="24" cy="24" r="14"/><circle cx="24" cy="24" r="6" fill="currentColor"/></svg>
+      </div>
+      <div class="cb-text"><strong>1 · Schockphase</strong><span>Stunden bis Tage: wie betäubt, unfähig die Situation zu begreifen</span></div>
+    </div>
+    <div class="cb-connector"></div>
+    <div class="cb-phase" data-phase="2">
+      <div class="cb-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><path class="cb-wave" d="M6 24 Q12 10 18 24 T30 24 T42 24" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div class="cb-text"><strong>2 · Reaktionsphase</strong><span>Wochen: starke Gefühle brechen aus – Trauer, Wut, Angst</span></div>
+    </div>
+    <div class="cb-connector"></div>
+    <div class="cb-phase" data-phase="3">
+      <div class="cb-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><path class="cb-gear" d="M24 14 L24 10 M24 38 L24 34 M14 24 L10 24 M38 24 L34 24 M17 17 L14 14 M31 31 L34 34 M31 17 L34 14 M17 31 L14 34" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
+      </div>
+      <div class="cb-text"><strong>3 · Bearbeitungsphase</strong><span>Monate: Auseinandersetzung mit der Realität, Sinnsuche</span></div>
+    </div>
+    <div class="cb-connector"></div>
+    <div class="cb-phase" data-phase="4">
+      <div class="cb-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><path class="cb-sprout" d="M24 38 L24 22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path class="cb-leaf" d="M24 26 Q16 22 16 14 Q24 16 24 24 M24 22 Q32 18 32 12 Q24 14 24 20" fill="currentColor" opacity=".85"/></svg>
+      </div>
+      <div class="cb-text"><strong>4 · Neuorientierung</strong><span>Akzeptanz, Integration der Krise ins Leben</span></div>
+    </div>
+  </div>
+
+  <div class="hi"><b>Pflegerische Konsequenz</b> (für alle drei Modelle): Phase erkennen, nicht beurteilen, Patient annehmen wo er steht. Keine Phase überspringen oder erzwingen.</div>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t15">
+  <h2 class="sec"><span class="n">15</span> Stressmodell nach Lazarus</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead"><strong>Transaktionales Stressmodell:</strong> Nicht das Ereignis selbst macht Stress, sondern die individuelle Bewertung des Ereignisses durch die Person.</p>
+  <h3 class="sub">Bewertungsprozess in 3 Schritten</h3>
+  <ol class="steps">
+    <li><strong>Primäre Bewertung:</strong> Was bedeutet das für mich? – irrelevant, positiv oder bedrohlich (Schaden, Bedrohung, Herausforderung)</li>
+    <li><strong>Sekundäre Bewertung:</strong> Habe ich Ressourcen, um damit umzugehen?</li>
+    <li><strong>Neubewertung:</strong> Nach Bewältigungsversuch – wie war das Ergebnis?</li>
+  </ol>
+  <h3 class="sub">Bewältigungsstrategien (Coping)</h3>
+  <ul>
+    <li><strong>Problemorientiert:</strong> Situation aktiv verändern, Lösung suchen</li>
+    <li><strong>Emotionsorientiert:</strong> Gefühle regulieren, Entspannung, Ablenkung</li>
+  </ul>
+  <div class="hi"><b>Pflegerische Konsequenz:</b> Patient hilft man am besten durch Stärkung seiner Ressourcen und Bewältigungsstrategien – nicht durch Verharmlosen der Situation.</div>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t16">
+  <h2 class="sec"><span class="n">16</span> Pharmakologie</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">ADME</h3>
+  <ul>
+    <li><strong>A – Absorption:</strong> Aufnahme in den Körper; oral über Magen und Darm zur Leber (First-Pass-Effekt)</li>
+    <li><strong>D – Distribution:</strong> Verteilung im Körper, beeinflusst durch Fettgewebe, Alter, Nierenfunktion</li>
+    <li><strong>M – Metabolismus:</strong> Abbau in der Leber; bei Lebererkrankung Gefahr der Überdosierung</li>
+    <li><strong>E – Exkretion:</strong> Ausscheidung über die Nieren; bei Niereninsuffizienz Gefahr der Akkumulation, Dosisanpassung nötig</li>
+  </ul>
+
+  <h3 class="sub">Agonist / Antagonist</h3>
+  <p><strong>Agonist:</strong> dockt sich an den Rezeptor und aktiviert ihn.<br/><strong>Antagonist:</strong> dockt sich an den Rezeptor und blockiert ihn – keine Wirkung.</p>
+
+  <h3 class="sub">Besondere Risikogruppen bei Medikamenten</h3>
+  <ul>
+    <li><strong>Ältere Menschen:</strong> wegen verlangsamter Leber- und Nierenfunktion, Polypharmazie und mehr Fettgewebe sollte eine niedrige Dosis gewählt und die Nebenwirkungen engmaschig beobachtet werden.</li>
+    <li><strong>Niereninsuffizienz:</strong> schlechte Ausscheidung der Medikamente führt zu Akkumulation; Dosis anpassen, Laborwerte kontrollieren.</li>
+    <li><strong>Lebererkrankung:</strong> schlechter Abbau; Dosis anpassen und das Bewusstsein beobachten.</li>
+    <li><strong>Schwangerschaft:</strong> viele Medikamente sind teratogen; Einnahme nur nach Rücksprache mit dem Arzt.</li>
+    <li><strong>Dysphagie:</strong> Medikamente können nicht eingenommen werden; flüssige oder retardierte Form klären, kein einfaches Mörsern ohne Rücksprache mit dem Arzt.</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t17">
+  <h2 class="sec"><span class="n">17</span> Mangelernährung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Unzureichende Zufuhr von Energie und Nährstoffen. Führt zu Gewichtsverlust, Muskelschwund, Immunschwäche und verzögerter Wundheilung.</div>
+  <p><strong>Symptome:</strong> BMI weniger als 18,5 kg/m², 5 % Gewichtsverlust in 3 Monaten, trockene Haut und Haarausfall.</p>
+  <p><strong>Risikofaktoren:</strong> Dysphagie und Kauprobleme, Appetitlosigkeit durch Medikamente, Depression, Demenz, Mobilitätseinschränkung, soziale Isolierung, Trauer, Pflegebedürftigkeit, chronische Erkrankung mit hohem Bedarf.</p>
+  <p><strong>Assessment:</strong> MNA (Mini Nutritional Assessment), NRS (Nutritional Risk Screening).</p>
+  
+  <h3 class="sub">Interventionen</h3>
+  <ul><li>Regelmäßige Gewichtskontrolle</li><li>Ernährungsprotokoll führen</li><li>Kleine, häufige, nährstoffreiche Mahlzeiten</li><li>Hilfsmittel wie angepasstes Besteck, angedickte Kost</li><li>Flüssigkeitszufuhr fördern</li><li>Interprofessionelle Zusammenarbeit</li><li>Angenehme Essatmosphäre schaffen</li><li>Lieblingsessen erfragen und berücksichtigen</li><li>Ausreichend Zeit lassen</li><li>Bei Bedarf orale Nährstoffergänzung</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t18">
+  <h2 class="sec"><span class="n">18</span> Adipositas</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">BMI über 30 kg/m².</div>
+  <p><strong>Folgen:</strong> Diabetes mellitus, Hypertonie, KHK, erhöhtes Dekubitus-, Intertrigo- und Thromboserisiko, Depression, soziale Isolierung, Schlafapnoe.</p>
+  
+  <h3 class="sub">Interventionen</h3>
+  <ul><li>Würde respektieren</li><li>Bewegung in kleinen, erreichbaren Schritten fördern</li><li>Ernährungsberatung anbieten – nicht aufzwingen</li><li>Hilfsmittel wie Pflegebett mit erhöhter Traglast, Rollstuhl in passender Größe</li><li>Hilfe beim Transfer</li><li>Erhöhte Dekubitus- und Thromboseprophylaxe</li><li>Hautpflege und regelmäßige Hautinspektion wegen Intertrigo</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t19">
+  <h2 class="sec"><span class="n">19</span> Palliativpflege</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Ansatz zur Verbesserung der Lebensqualität bei schwer erkrankten Menschen und ihren Angehörigen.</p>
+  <p><strong>Leiden lindern:</strong> weder den Tod beschleunigen noch hinauszögern.</p>
+  <div class="hi"><b>Weniger ist mehr:</b> jede Maßnahme am Nutzen-Belastungs-Verhältnis überprüfen, jede Maßnahme mit dem Patienten absprechen – Lebensqualität ist das oberste Ziel. Früh anfangen, nicht erst in der Sterbephase.</div>
+  
+  <h3 class="sub">Einsätze</h3>
+  <ul><li><strong>Palliativstation:</strong> im Krankenhaus</li><li><strong>Stationäres Hospiz:</strong> spezialisierte Einrichtung</li><li><strong>Ambulantes Hospiz:</strong> durch ehrenamtliche Begleiter</li><li><strong>SAPV:</strong> Spezialisierte Ambulante Palliativversorgung durch Palliativmediziner und Pflegefachkraft</li></ul>
+
+  <h3 class="sub">Pflege / Symptomkontrolle</h3>
+  <ul><li><strong>Schmerz:</strong> kontinuierliches Assessment, WHO-Schema umsetzen, dokumentieren</li><li><strong>Atemnot:</strong> OKH, frische Luft oder Ventilator, O₂-Gabe nach ärztlicher Anordnung, beruhigende Präsenz</li><li><strong>Übelkeit:</strong> Antiemetika, kleine Mahlzeiten, Gerüche meiden</li><li><strong>Mundtrockenheit:</strong> feuchte Tupfer, Eiswürfel, Lieblingsgetränke</li></ul>
+
+  <h3 class="sub">Kommunikation und Begleitung</h3>
+  <p>Aktiv zuhören, keine falschen Versprechungen, spirituelle Bedürfnisse (Seelsorger einbeziehen), Angehörige einbeziehen und in der Trauer begleiten.</p>
+
+  <h3 class="sub">Sterbephase</h3>
+  <ul><li>Schmerzfreiheit ist das oberste Ziel</li><li>Körperpflege nur, was nötig und gewünscht ist</li><li>Mundpflege ausreichend, auch ohne Flüssigkeitszufuhr</li><li>Würde und vertraute Umgebung wahren</li><li>Angehörige können anwesend sein</li></ul>
+
+  <h3 class="sub">Sterbehilfe</h3>
+  <ul><li><strong>Passiv:</strong> Verzicht auf lebensverlängernde Maßnahmen – in Deutschland zugelassen.</li><li><strong>Indirekt:</strong> Schmerzmittel, die als Nebenwirkung das Leben verkürzen können – in Deutschland zugelassen.</li><li><strong>Assistierter Suizid:</strong> der Patient nimmt selbst das bereitgestellte Mittel – in Deutschland zugelassen.</li><li><strong>Aktiv:</strong> Töten auf Verlangen durch eine andere Person – nicht zugelassen.</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t20">
+  <h2 class="sec"><span class="n">20</span> Recht</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Grundlage des Pflegeberufegesetzes</h3>
+  <ul><li>Erhebung und Feststellung des Pflegebedarfs</li><li>Organisation, Gestaltung und Steuerung der Pflege</li><li>Analyse, Evaluation und Qualitätssicherung der Pflege</li></ul>
+
+  <h3 class="sub">Zivilrecht – Verantwortungen</h3>
+  <p><strong>Arzt:</strong> Anordnungsverantwortung. <strong>Pflegefachkraft:</strong> Durchführungsverantwortung.</p>
+  <p><strong>Weigerungsrecht:</strong> Die Pflegefachkraft muss die Durchführung verweigern, wenn die Kompetenz fehlt oder wenn die Anordnung falsch ist.</p>
+
+  <h3 class="sub">Strafrecht</h3>
+  <p><strong>Unterlassene Hilfeleistung:</strong> Wer bei einem Unglücksfall oder einer Gefahr nicht hilft, obwohl es zumutbar ist, macht sich strafbar.</p>
+
+  <h3 class="sub">FEM – Freiheitsentziehende Maßnahmen</h3>
+  <p>Pflegemaßnahmen, die die Bewegungsfreiheit einschränken oder entziehen. <strong>Formen:</strong> mechanische Fixierung, chemische Fixierung, Unterbringung gegen den Willen.</p>
+  <h4 class="subsub">FEM ist zulässig, wenn …</h4>
+  <ul><li>der Patient einwilligungsfähig ist → es braucht die Einwilligung des Patienten.</li><li>der Patient einwilligungsunfähig ist und einen Betreuer oder eine Vollmacht hat → es braucht die Einwilligung des Betreuers/Bevollmächtigten und eine richterliche Genehmigung bei dauerhafter oder regelmäßiger Fixierung.</li><li>der Patient einwilligungsunfähig ist und keinen Betreuer hat → mutmaßliche Einwilligung im Notfall und das Betreuungsgericht einschalten.</li></ul>
+  <h4 class="subsub">FEM ist zulässig bei …</h4>
+  <ul><li>Selbst- oder Fremdgefährdung</li><li>Notwehr</li><li>einer Heilbehandlung, die anders nicht durchgeführt werden kann</li></ul>
+
+  <h3 class="sub">Dokumentationspflicht</h3>
+  <p>Rechtliche Absicherung, Qualitätssicherung, interdisziplinäre Zusammenarbeit, kontinuierliche Verbesserung und Steuerung des Pflegeprozesses.</p>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t21">
+  <h2 class="sec"><span class="n">21</span> Gesundheitsförderung &amp; Prävention</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Ottawa-Charta (1986)</h3>
+  <p>Grundlage für die Gesundheitsförderung weltweit. Sie ist der Prozess, Menschen zu befähigen, mehr Kontrolle über ihre Gesundheit zu erlangen und sie zu verbessern.</p>
+  <h4 class="subsub">5 Grundstrategien</h4>
+  <ol class="steps"><li>Gesundheitsfördernde Gesamtpolitik</li><li>Gesundheitsfördernde Lebenswelt</li><li>Gemeinschaftliche Aktionen stärken</li><li>Persönliche Kompetenzen entwickeln</li><li>Gesundheitsdienste neu orientieren</li></ol>
+
+  <h3 class="sub">Salutogenese nach Antonovsky</h3>
+  <p>Der Gegenpol zur Pathogenese. Hier wird nicht gefragt „Warum krank?", sondern „Was hält gesund?".</p>
+  <h4 class="subsub">Kohärenzgefühl</h4>
+  <ul><li><strong>Verstehbarkeit:</strong> Ich verstehe, was um mich herum passiert.</li><li><strong>Handhabbarkeit:</strong> Ressourcen sind vorhanden, um die Anforderungen zu bewältigen.</li><li><strong>Bedeutsamkeit:</strong> Die Anforderungen sind es wert, sich einzusetzen.</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t22">
+  <h2 class="sec"><span class="n">22</span> Pflegecharta</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Die Rechte pflegebedürftiger Menschen stärken, einen Maßstab für würdevolle Pflege setzen, Qualitätskriterien für Einrichtungen und Aufsichtsbehörden.</p>
+  <ol class="steps"><li>Selbstbestimmung und Hilfe zur Selbsthilfe</li><li>Körperliche und seelische Unversehrtheit, Freiheit und Sicherheit</li><li>Privatheit</li><li>Pflege, Betreuung und Behandlung</li><li>Information, Beratung und Aufklärung</li><li>Kommunikation, Wertschätzung und Teilhabe an der Gesellschaft</li><li>Religion, Kultur und Weltanschauung</li><li>Begleitung beim Sterben und Tod</li></ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t23">
+  <h2 class="sec"><span class="n">23</span> EACH-Charta</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p class="lead">Für Kinder im Krankenhaus. Die Rechte kranker Kinder vor, während und nach dem Krankenhausaufenthalt. Sie gilt unabhängig von Alter, Erkrankung, Herkunft oder Behinderung des Kindes.</p>
+  <ol class="steps"><li>Krankenhausaufenthalt nur, wenn es medizinisch notwendig ist</li><li>Recht auf Bildung im Krankenhaus</li><li>Eltern oder Bezugsperson dürfen jederzeit, rund um die Uhr, beim Kind sein</li><li>Altersgerechte Information für Kinder und Eltern</li><li>Eltern und Kinder werden in jede Entscheidung einbezogen, um sie vor unnötigen Maßnahmen zu schützen</li><li>Unterbringung nur mit gleichaltrigen Kindern</li><li>Recht auf Spiel, Erholung und Schulbildung im Krankenhaus</li><li>Betreuung durch kindgerecht ausgebildetes und einfühlsames Personal</li><li>Kontinuität der Pflege durch feste Teams</li><li>Respekt vor Privatsphäre, Würde und individuellen Bedürfnissen</li></ol>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t24">
+  <h2 class="sec"><span class="n">24</span> Familienorientierte Pflege</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def"><strong>Grundprinzip:</strong> Eltern sind keine Besucher, sondern aktive Pflegepartner.</div>
+  
+  <h3 class="sub">Kernpunkte</h3>
+  <ul><li>Eltern in die Pflege einbeziehen, schulen und anleiten</li><li>Eltern als Experten für ihr Kind respektieren</li><li>Wenn Abwesenheit der Eltern für das Kind ein Stressor ist – Anwesenheit ermöglichen</li><li>Geschwister und Familie mitdenken</li></ul>
+
+  <h3 class="sub">Bei chronisch kranken Kindern</h3>
+  <ul><li>Eltern tragen eine große Last – Entlastung, Beratung und Vernetzung mit Selbsthilfegruppen anbieten</li><li>Häusliche Pflege anleiten</li><li>§37a SGB V: Kinderkrankenpflege als Leistungsanspruch</li></ul>
+
+  <h3 class="sub">Sorgerecht (§§ 1626–1698b BGB)</h3>
+  <ul>
+    <li><strong>Personensorge:</strong> Pflege, Beaufsichtigung, Erziehung, Aufenthaltsbestimmung</li>
+    <li><strong>Vermögenssorge:</strong> Verwaltung des Kindesvermögens</li>
+    <li>Eheliche Kinder: gemeinsames Sorgerecht beider Eltern</li>
+    <li>Nichteheliche Kinder: zunächst bei Mutter, gemeinsam nur mit Sorgeerklärung des Vaters</li>
+    <li><strong>Wichtig für die Pflege:</strong> Auskunft über Gesundheitszustand des Kindes nur an Sorgeberechtigte</li>
+  </ul>
+
+  <h3 class="sub">Frühe Hilfen</h3>
+  <ul>
+    <li>Niederschwelliges, kostenloses Angebot für Familien mit Kindern bis 3 Jahre</li>
+    <li>Zielgruppe: junge Eltern, Eltern mit Migrationsgeschichte, überforderte Eltern, Familien in Belastungssituationen</li>
+    <li>Angebote: Schwangerschaftsberatung, Familienhebammen, Hausbesuche, Eltern-Kind-Kurse</li>
+    <li>Ziel: Handlungskompetenz stärken, gesunde und gewaltfreie Kindheit ermöglichen</li>
+  </ul>
+
+  <h3 class="sub">Theorie der familien- und umweltbezogenen Pflege nach Friedemann</h3>
+  <ul>
+    <li>Systemischer Ansatz: Mensch und Familie als System mit Subsystemen</li>
+    <li><strong>4 Ziele:</strong> Stabilität · Wachstum · Kontrolle · Spiritualität</li>
+    <li><strong>4 Prozessdimensionen:</strong> Systemerhaltung · Systemänderung · Kohärenz · Individuation</li>
+    <li>Ziel der Pflege: systemisches Gleichgewicht (Kongruenz) wiederherstellen</li>
+  </ul>
+
+  <h3 class="sub">Entwicklung &amp; Förderung bei Kindern – Bereiche</h3>
+  <ul>
+    <li><strong>Motorik:</strong> Grobmotorik (Sitzen, Laufen) und Feinmotorik (Greifen, Stiftführung)</li>
+    <li><strong>Sprache:</strong> Lautbildung, Wortschatz, Satzbau, Sprachverständnis</li>
+    <li><strong>Kognition:</strong> Wahrnehmung, Aufmerksamkeit, Gedächtnis, Problemlösung</li>
+    <li><strong>Sozial-emotional:</strong> Bindung, Empathie, Konfliktverhalten, Selbstregulation</li>
+    <li><strong>Selbstversorgung:</strong> Essen, An-/Ausziehen, Hygiene, Sauberkeitserziehung</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t25">
+  <h2 class="sec"><span class="n">25</span> Interdisziplinäre Zusammenarbeit</h2>
+  <p class="lead">Zusammenarbeit zwischen verschiedenen Fachbereichen und Experten.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t26">
+  <h2 class="sec"><span class="n">26</span> Delegation</h2>
+  <p class="lead">Übertragung von Aufgaben an andere Personen.</p>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t27">
+  <h2 class="sec"><span class="n">27</span> SBAR-Übergabe</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <ul><li><strong>S – Situation:</strong> Was ist gerade das Problem?</li><li><strong>B – Background:</strong> relevante Vorgeschichte, Vorerkrankung</li><li><strong>A – Assessment:</strong> fachliche Einschätzung der Pflegefachkraft</li><li><strong>R – Recommendation:</strong> Empfehlung von Maßnahmen oder was wird gebraucht?</li></ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t28">
+  <h2 class="sec"><span class="n">28</span> Expertenstandards</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">1. Dekubitusprophylaxe</h3>
+  <ol class="steps"><li>Druckgeschwüre vermeiden</li><li>Risikoeinschätzung durch Braden-Skala</li><li>Maßnahmen: Positionierung, Bewegung fördern, Hautbeobachtung, Hilfsmittel</li><li>Risikogruppen: immobile, unterernährte, inkontinente Patienten</li></ol>
+
+  <h3 class="sub">2. Schmerzmanagement</h3>
+  <ol class="steps"><li>Akute und chronische Schmerzen</li><li>Assessment durch NRS, VAS, Wong-Baker Smiley-Skala und BESD</li><li>Regelmäßiges Reassessment</li><li>Multimodale Schmerztherapie</li></ol>
+
+  <h3 class="sub">3. Sturzprophylaxe</h3>
+  <ol class="steps"><li>Assessment durch Sturzassessment oder Morse Fall Scale</li><li>Risikofaktoren: intrinsisch, extrinsisch</li><li>Maßnahmen: Umgebungsanpassung, Hilfsmittel, Bewegung fördern</li><li>Fixierung ist keine Maßnahme</li></ol>
+
+  <h3 class="sub">4. Ernährungsmanagement</h3>
+  <ol class="steps"><li>Mangelernährung vermeiden</li><li>Einschätzung durch MNA, NRS</li><li>Ursachen erkennen: Dysphagie, Appetitlosigkeit, Demenz</li><li>Maßnahmen: Trinknahrung, angepasste Kost, protokollieren, PEG-Sonde</li></ol>
+
+  <h3 class="sub">5. Förderung der Harnkontinenz</h3>
+  <ol class="steps"><li>Kontinenz erhalten oder verbessern oder Inkontinenz kompensieren</li><li>Kontinenzprofil bestimmen</li><li>Blasentraining, angepasste Hilfsmittel, Beckenbodentraining</li></ol>
+
+  <h3 class="sub">6. Mobilität und Bewegung fördern</h3>
+  <ol class="steps"><li>Mobilität erhalten und fördern</li><li>Einschätzung durch Timed Up and Go Test</li><li>Kontraktur, Thrombose, Pneumonie vermeiden</li><li>Frühmobilisation, Positionierung, Physiotherapie</li></ol>
+
+  <h3 class="sub">7. Chronische Wunden</h3>
+  <ol class="steps"><li>Wundassessment: Größe, Tiefe, Exsudat, Infektionszeichen</li><li>Regelmäßige Wunddokumentation</li><li>Feuchte Wundversorgung als Standard</li><li>Ursache behandeln</li></ol>
+
+  <h3 class="sub">8. Entlassungsmanagement</h3>
+  <ol class="steps"><li>Versorgungsbrüche beim Übergang vermeiden</li><li>Beginnt schon früh bei der Aufnahme</li><li>24 Stunden vor Entlassung planen und vorbereiten, mit Patient und Angehörigen klären, bei Bedarf den Plan anpassen</li><li>Nachversorgung organisieren</li><li>Pflegeüberleitungsprotokoll als wichtiges Instrument</li></ol>
+
+  <h3 class="sub">9. Demenz / kognitive Einschränkung</h3>
+  <ol class="steps"><li>Personzentrierter Ansatz nach Tom Kitwood</li><li>Biographiearbeit, Validation, Orientierungspflege</li><li>Würde und Autonomie erhalten</li><li>Herausforderndes Verhalten verstehen, nicht bekämpfen</li></ol>
+
+  <h3 class="sub">10. Förderung der Mundgesundheit</h3>
+  <ol class="steps"><li>Erkrankungen von Zähnen, Zahnhalteapparat und Mundschleimhaut vorbeugen</li><li>Screening und bei Bedarf vertiefendes Assessment der Mundgesundheit</li><li>Maßnahmen: Zähne, Schleimhaut, Zunge und Prothesen reinigen, Lippenpflege, Schleimhaut befeuchten</li><li>Anleitung und bei Bedarf Übernahme der Mundpflege</li></ol>
+
+  <h3 class="sub">11. Erhaltung und Förderung der Hautintegrität</h3>
+  <ol class="steps"><li>Hautschäden (z.B. trockene Haut, Intertrigo, Inkontinenz-assoziierte Dermatitis) vorbeugen</li><li>Risikoeinschätzung des Hautzustands</li><li>Maßnahmen: hautschonende Reinigung, rückfettende Hautpflege, Schutz vor Feuchtigkeit</li><li>Regelmäßige Hautbeobachtung</li></ol>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="t29">
+  <h2 class="sec"><span class="n">29</span> Begutachtung durch den Medizinischen Dienst (NBA)</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Der Medizinische Dienst (MD) ermittelt anhand des Neuen Begutachtungsassessments (NBA) die Selbstständigkeit eines Menschen in 6 Lebensbereichen. Daraus ergibt sich eine Punktzahl, die einem Pflegegrad (1–5) zugeordnet wird. Grundlage: §14 SGB XI.</div>
+  
+  <h3 class="sub">Die 6 Module</h3>
+  <ol class="steps">
+    <li>Mobilität</li>
+    <li>Kognitive und kommunikative Fähigkeiten</li>
+    <li>Verhaltensweisen und psychische Problemlagen</li>
+    <li>Selbstversorgung</li>
+    <li>Bewältigung von und selbständiger Umgang mit krankheits- oder therapiebedingten Anforderungen und Belastungen</li>
+    <li>Gestaltung des Alltagslebens und sozialer Kontakte</li>
+  </ol>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+</div><!-- /panel-theorie -->
+
+<div id="panel-krankheit" class="panel">
+<nav class="toc"><h3>Teil 2 · Krankheitsbilder</h3>
+  <ol class="k-list">
+    <li><a href="#k1">Herzinsuffizienz</a></li>
+    <li><a href="#k2">Herzinfarkt</a></li>
+    <li><a href="#k3">Herzrhythmusstörungen</a></li>
+    <li><a href="#k4">Diabetes mellitus</a></li>
+    <li><a href="#k5">Asthma bronchiale</a></li>
+    <li><a href="#k6">COPD</a></li>
+    <li><a href="#k7">Lungenembolie</a></li>
+    <li><a href="#k8">Anämie</a></li>
+    <li><a href="#k9">Niereninsuffizienz</a></li>
+    <li><a href="#k10">Harnwegsinfekt</a></li>
+    <li><a href="#k11">Osteoporose</a></li>
+    <li><a href="#k12">Arthrose</a></li>
+    <li><a href="#k13">Rheumatoide Arthritis</a></li>
+    <li><a href="#k14">Präoperative Pflege</a></li>
+    <li><a href="#k15">Postoperative Pflege</a></li>
+    <li><a href="#k16">Wundversorgung</a></li>
+    <li><a href="#k17">Sepsis</a></li>
+    <li><a href="#k18">MRSA</a></li>
+    <li><a href="#k19">Apoplex</a></li>
+    <li><a href="#k20">Schädel-Hirn-Trauma (SHT)</a></li>
+    <li><a href="#k21">Epilepsie</a></li>
+    <li><a href="#k22">Demenz</a></li>
+    <li><a href="#k23">Depression</a></li>
+    <li><a href="#k24">Angststörungen</a></li>
+    <li><a href="#k25">Delir</a></li>
+    <li><a href="#k26">Tumorerkrankung</a></li>
+    <li><a href="#k27">Tumorschmerz &amp; WHO-Schema</a></li>
+    <li><a href="#k28">Suchterkrankungen</a></li>
+    <li><a href="#k29">Alkoholabhängigkeit</a></li>
+    <li><a href="#k30">Essstörungen</a></li>
+    <li><a href="#k31">Mukoviszidose</a></li>
+    <li><a href="#k32">ADHS</a></li>
+    <li><a href="#k33">Autismus</a></li>
+    <li><a href="#k34">Trisomie 21 (Down-Syndrom)</a></li>
+    <li><a href="#k35">Neurodermitis (Atopisches Ekzem)</a></li>
+    <li><a href="#k36">Entwicklungsmeilensteine</a></li>
+  </ol></nav>
+<div class="part krankheit"><h2>Teil 2 · Krankheitsbilder</h2></div>
+
+<section id="k1" class="k">
+  <h2 class="sec"><span class="n">1</span> Herzinsuffizienz</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Die Pumpfunktion des Herzens reicht nicht mehr aus, um den Körper mit Blut und Sauerstoff zu versorgen. Akut und chronisch.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <ul><li><strong>Linksherzinsuffizienz:</strong> Lungenödem, Dyspnoe, Orthopnoe, Rasselgeräusche, Atemnot</li><li><strong>Rechtsherzinsuffizienz:</strong> Beinödeme, Halsvenenstauung, Stauungsleber, Stauungsgastritis, Appetitlosigkeit</li></ul>
+
+  <h3 class="sub">NYHA-Stadien</h3>
+  <ol class="steps"><li>Keine Symptome, aber diagnostizierte Herzinsuffizienz</li><li>Beschwerden bei starker Belastung</li><li>Beschwerden bei leichter Belastung</li><li>Beschwerden im Ruhezustand</li></ol>
+
+  <h3 class="sub">Pflegemaßnahmen</h3>
+  <ul><li>Atmung beobachten, auf Zeichen eines beginnenden Lungenödems achten</li><li>Tägliche Gewichtskontrolle, Ödemkontrolle</li><li>Flüssigkeitsbeschränkung nach AO, Flüssigkeitsbilanzierung, salzarme Kost</li><li>VZK, Hochlagerung des Bettes, Oberkörperhochlagerung bei Dyspnoe, körperliche Schonung, ggf. Bettruhe nach AO</li><li>Bewegung fördern: Herzsportgruppen, Spazierengehen</li><li>Thrombose-, Pneumonie-, Sturz- und Obstipationsprophylaxe</li><li>Symptome schulen, Selbstmanagement fördern, Notfallprophylaxe</li><li>Lebensstilberatung: Raucherentwöhnung, mediterrane Diät, Stress reduzieren, Alkoholkonsum reduzieren</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k2" class="k">
+  <h2 class="sec"><span class="n">2</span> Herzinfarkt</h2>
+  <div class="def">Eine akute, lebensbedrohliche Durchblutungsstörung des Herzmuskels, verursacht durch den Verschluss einer Koronararterie. Dies führt zu Sauerstoffmangel und Absterben von Herzmuskelgewebe.</div>
+  
+  <h3 class="sub">MONA-BH-Schema</h3>
+  <p>Morphin · Sauerstoff · Nitrat · ASS · Betablocker · Heparin</p>
+
+  <h3 class="sub">STEMI und NSTEMI</h3>
+  <p><strong>STEMI:</strong> kompletter Verschluss der Koronararterie.<br/><strong>NSTEMI:</strong> nicht-kompletter Verschluss.</p>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k3" class="k">
+  <h2 class="sec"><span class="n">3</span> Herzrhythmusstörungen</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">HF zu hoch, zu niedrig und/oder unregelmäßig – führt zu Störungen der Erregungsbildung und Erregungsleitung.</div>
+  <p><strong>Vorhof- und Kammerflimmern:</strong> 300–600/min, Gefahr für Schlaganfall und lebensbedrohliche Situationen, häufige Ursache für Herzinfarkt.</p>
+  
+  <h3 class="sub">Pflegemaßnahmen</h3>
+  <ul><li>Herzrhythmusstörungen erkennen</li><li>Monitor- bzw. Ruhe-EKG nach AO</li><li>Alarmgrenzen am Monitor regelmäßig kontrollieren</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k4" class="k">
+  <h2 class="sec"><span class="n">4</span> Diabetes mellitus</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Eine chronische Stoffwechselerkrankung, die zu erhöhten Blutzuckerwerten führt, da die Betroffenen einen Mangel an Insulin haben.</div>
+  
+  <h3 class="sub">Typ 1</h3>
+  <p>Autoimmunerkrankung, bei der das Pankreas durch das eigene Immunsystem zerstört wird und kein Insulin mehr produziert – absoluter Insulinmangel.</p>
+  <p><strong>Symptome:</strong> Polyurie, Gewichtsverlust, Müdigkeit, Schwächegefühl, Leistungsminderung, Schwindel, starkes Durstgefühl.</p>
+
+  <h3 class="sub">Typ 2</h3>
+  <p>Entsteht durch einen erhöhten BZ, eine Insulinresistenz und einen daraus resultierenden Insulinmangel.</p>
+  <p><strong>Symptome:</strong> Müdigkeit, Appetitlosigkeit, Sehstörungen, Muskelkrämpfe, trockene Haut und Juckreiz, Schwindel und Übelkeit, Konzentrationsprobleme.</p>
+
+  <h3 class="sub">Hypoglykämie</h3>
+  <p>Unterzuckerung, der Abfall des BZ-Spiegels.<br/><strong>Symptome:</strong> Zittern, Schwitzen, Heißhunger, Unruhe, Herzrasen, Bewusstlosigkeit.</p>
+
+  <h3 class="sub">Hyperglykämie</h3>
+  <p>Überzuckerung.<br/><strong>Symptome:</strong> langsam steigend, Durst, Polyurie, tiefe Atmung.</p>
+
+  <h3 class="sub">Diabetisches Fußsyndrom</h3>
+  <p>Kombination von Angio- und Neuropathie.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Anzeichen einer Hypo- und Hyperglykämie beobachten</li><li>Regelmäßige BZ-Kontrolle, regelmäßige Gewichtskontrolle</li><li>Kontrolle der Haut auf Druckstellen, Blasen, Wunden, vor allem am Fuß</li><li>Regelmäßige körperliche Aktivität fördern</li><li>Prävention von Langzeitfolgen</li><li>Beratung und Anleitung zu Ernährung, Krankheit, BZ-Messung, Insulingabe und Alltagsgestaltung mit der Krankheit</li><li>Intertrigo- und Dekubitusprophylaxe</li><li>Dokumentation der Werte und Auffälligkeiten</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k5" class="k">
+  <h2 class="sec"><span class="n">5</span> Asthma bronchiale</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Chronische Entzündung mit anfallartigen, reversiblen Verengungen der Atemwege durch Überempfindlichkeit der Bronchien. Allergisch und nicht-allergisch.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Anfallsartige Atemnot mit pfeifenden Geräuschen, verlangsamte Ausatmung, trockener Husten, Tachykardie, Tachypnoe, Engegefühl in der Brust, Angst, Unruhe.</p>
+
+  <h3 class="sub">Bei Anfall</h3>
+  <ul><li>Atemerleichternde Haltung: Kutschersitz, Lippenbremse anwenden</li><li>Inhalation Salbutamol, Patient beruhigen, sitzend lagern</li><li>Bei schwerem Anfall: Sauerstoffgabe, Kortikosteroidgabe, Notarzt</li></ul>
+
+  <h3 class="sub">Bei Kindern</h3>
+  <p>Auslöser meistens Infektionen der Atemwege. Symptome: Husten, besonders nachts, sowie pfeifende Geräusche. Verwendung von Spacer als Inhalationshilfe.</p>
+
+  <h3 class="sub">Sofortmaßnahmen</h3>
+  <ul><li>Hilfe holen / Arzt informieren</li><li>Patient beruhigen, nicht alleine lassen</li><li>Fenster öffnen</li><li>Bedarfsmedikamente verabreichen</li><li>Atemerleichterung</li></ul>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>VZK regelmäßig (Puls, Atmung, SpO₂)</li><li>Inhalationstherapie: richtige Technik sicherstellen, ggf. Hilfestellungen anbieten</li><li>Anleitung und Beratung zu relevanten Themen wie Aufklärung zu Auslösern, Inhalationstechniken, Notfallmedikamente, Alltagsbewältigung</li><li>Bei Kindern wenn möglich Eltern bzw. Angehörige einbeziehen</li><li>Umgang mit Stress und Angst fördern</li><li>Zu regelmäßiger Bewegung motivieren in anfallsfreien Intervallen</li></ul>
+
+  <h3 class="sub">Reliever und Controller</h3>
+  <table><thead><tr><th>Reliever</th><th>Controller</th></tr></thead><tbody>
+    <tr><td>Bedarfsmedikamente bei akutem Anfall</td><td>Dauermedikamente für Langzeitkontrolle</td></tr>
+    <tr><td>Bei Atemnot / Anfall sofort</td><td>Täglich, auch ohne Beschwerden</td></tr>
+    <tr><td>Salbutamol</td><td>ICS, langwirksame Bronchodilatatoren</td></tr>
+    <tr><td>Wirkt in Minuten</td><td>Wirkt in Tagen</td></tr>
+  </tbody></table>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k6" class="k">
+  <h2 class="sec"><span class="n">6</span> COPD</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Chronische obstruktive pulmonale Erkrankung – eine chronische, fortschreitende Lungenerkrankung, die durch verengte Atemwege und eine irreversible Einschränkung der Lungenfunktion gekennzeichnet ist.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>AHA (Auswurf, Husten, Atemnot), Zyanose, Infektanfälligkeit.<br/><strong>Bei fortschreitender Erkrankung:</strong> Fassthorax, Uhrglasnägel, Rechtsherzinsuffizienz die zu Beinödemen führt, akute Exazerbation.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Regelmäßige Kontrolle der VZ, Veränderungen erfassen und entsprechend handeln</li><li>Atmungsfördernde Maßnahmen, z.B. OH-Lagerung, Atemübungen</li><li>Überwachung der richtigen Inhalationstechnik</li><li>Förderung der Mobilität im Rahmen der Belastbarkeit</li><li>Frühzeitige Erkennung und Handeln bei Notfällen</li><li>Regelmäßige Dokumentation</li><li>Beratung und Schulung zum Umgang mit Hilfsmitteln und Selbsthilfemaßnahmen</li><li>Infektionsprophylaxe</li></ul>
+
+  <h3 class="sub">Notfälle</h3>
+  <ul><li><strong>Lungenembolie:</strong> O₂-Gabe, Immobilisierung, Heparin vorbereiten, Notarzt alarmieren</li><li><strong>Akute Atemnot:</strong> Patient beruhigen, aufrecht hinsetzen, Lippenbremse, O₂-Gabe</li><li><strong>Akute Exazerbation:</strong> O₂-Gabe, Bronchodilatatoren-Gabe</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k7" class="k">
+  <h2 class="sec"><span class="n">7</span> Lungenembolie</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Verschluss einer oder mehrerer Lungenarterien durch einen Embolus (meist abgelöst von einer TVT).</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Notfall erkennen! Plötzliche Atemnot, stechende, atemabhängige Thoraxschmerzen, Tachykardie, Tachypnoe, starke Angst, Husten.</p>
+
+  <h3 class="sub">Sofortmaßnahmen</h3>
+  <ul><li>Aufrechte Lagerung (OH)</li><li>O₂-Gabe über Nasensonde oder Maske</li><li>Notruf / Arzt sofort</li><li>Patient nicht bewegen (Gefahr weiterer Embolie)</li><li>Monitoring: RR, Puls, SpO₂, Bewusstsein</li><li>i.v.-Zugang vorbereiten</li><li>Heparin i.v. vorbereiten</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k8" class="k">
+  <h2 class="sec"><span class="n">8</span> Anämie</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Entsteht, wenn der Sauerstofftransport des Blutes durch erniedrigte Hb-Werte eingeschränkt ist. Bei Frauen &lt; 12,0, bei Männern &lt; 13,0. Häufigste Form ist die Eisenmangelanämie.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Blässe, Müdigkeit, Tachykardie, Schwindel, Kopfschmerzen, Konzentrationsstörung, Atemnot bei Belastung.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Sturzprophylaxe, Dekubitusprophylaxe</li><li>Belastung anpassen, Pausen einplanen</li><li>RR und Puls kontrollieren</li><li>Blässe beobachten und dokumentieren</li><li>Eisentabletten mit Vitamin C für bessere Resorption – Kaffee und Tee können die Einnahme hemmen</li><li>Dunkler Stuhl bei Eisengabe – Patient aufklären</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k9" class="k">
+  <h2 class="sec"><span class="n">9</span> Niereninsuffizienz</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Nierenfunktionsstörung über 3 Monate mit Auswirkungen auf die Gesundheit. 5 Stadien: keine Symptome im ersten GFR-Stadium, dialysepflichtig im G5 mit Urämiesymptomen wie Juckreiz, gelbgraue Haut, Geruch nach Urin, Übelkeit, Verwirrtheit.</div>
+  
+  <h3 class="sub">Dialyse</h3>
+  <p>Bei GFR &lt; 15 ml/min oder bedrohlichen Komplikationen wie Hyperkaliämie.</p>
+  <table><thead><tr><th>Hämodialyse</th><th>Peritonealdialyse</th></tr></thead><tbody>
+    <tr><td>Im Dialysezentrum</td><td>Zuhause möglich</td></tr>
+    <tr><td>Blut wird durch Maschine gereinigt</td><td>Bauchfell als Filter</td></tr>
+    <tr><td>3 × pro Woche</td><td>Täglich</td></tr>
+    <tr><td>Shunt am Arm</td><td>Katheter am Bauch</td></tr>
+  </tbody></table>
+
+  <h3 class="sub">Shunt-Pflege</h3>
+  <ul><li>Kein RR am Shunt-Arm messen</li><li>Shunt täglich auf Geräusche prüfen – wenn kein Schwirren mehr da ist, ist ein Verschluss möglich, sofort Arzt informieren</li><li>Kein enger Schmuck oder enge Kleidung am Shunt-Arm</li></ul>
+
+  <h3 class="sub">Pflegemaßnahmen</h3>
+  <ul><li>Flüssigkeitsbilanzierung</li><li>Tägliche Gewichtskontrolle</li><li>RR regelmäßig kontrollieren</li><li>Hautpflege wegen Juckreiz und trockener Haut</li><li>Ernährung: kaliumarm, phosphatarm, eiweißreduziert</li><li>Sturzprophylaxe</li><li>Vor und nach der Dialyse Gewicht messen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k10" class="k">
+  <h2 class="sec"><span class="n">10</span> Harnwegsinfekt</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Pathogene Erreger dringen in die Harnwege ein und lösen Symptome aus.</div>
+  
+  <h3 class="sub">Symptome – unterer vs. oberer HWI</h3>
+  <ul><li><strong>Unterer HWI:</strong> Dysurie, Algurie, Pollakisurie, Brennen, unangenehmer Geruch, leichtes Fieber</li><li><strong>Oberer HWI:</strong> alles vom unteren plus hohes Fieber, Schüttelfrost, Flankenschmerzen, stark reduzierter Allgemeinzustand, Urosepsis</li><li><strong>Bei älteren Patienten:</strong> unspezifisch wie Unruhe, Verwirrtheit, Appetitlosigkeit</li></ul>
+
+  <h3 class="sub">Pflege</h3>
+  <p>Beobachten von Urinmenge, Geruch, Farbe, Temperatur, Miktionsfrequenz und Beschwerden dokumentieren.</p>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k11" class="k">
+  <h2 class="sec"><span class="n">11</span> Osteoporose</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Abnahme der Knochenmasse – Knochen werden porös, instabil und bruchgefährdet. Lange asymptomatisch, keine Schmerzen bis zur ersten Fraktur.</div>
+  
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Sturzprophylaxe</li><li>Bei Mobilisation vorsichtig, schonende Mobilisation, keine ruckartigen Bewegungen, aktivierende Pflege</li><li>Ernährung: kalziumreiche Kost, Vitamin-D-reiche Kost</li><li>Schmerzmanagement: Schmerzerfassung, Analgetika nach AO und Wirkung beobachten, Lagerung in schmerzarmer Position</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k12" class="k">
+  <h2 class="sec"><span class="n">12</span> Arthrose</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Degenerative Zerstörung des Gelenkknorpels – das Gelenk nutzt sich ab.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Anlaufschmerz, Belastungsschmerz, Morgensteifigkeit &lt; 30 Minuten, Ruheschmerz, Gelenkdeformierung, aktivierte Arthrose.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Gewichtsreduktion beraten</li><li>Physiotherapie</li><li>Wärme bei chronischen Beschwerden</li><li>Kälte bei aktivierter Arthrose</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k13" class="k">
+  <h2 class="sec"><span class="n">13</span> Rheumatoide Arthritis</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Chronische Autoimmunerkrankung, Entzündung der Gelenkinnenhaut.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Müdigkeit, Schwitzen, leichtes Fieber, symmetrischer Befall kleiner Gelenke, Morgensteifigkeit &lt; 1 Stunde, im Verlauf Gelenkfehlstellungen, Rheumaknoten, Organabfall.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Schmerzen beobachten</li><li>Gelenkschonende Lagerung</li><li>Morgenstarre berücksichtigen</li><li>Hilfsmittel anpassen</li><li>In akuten Schüben: Kältepackungen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k14" class="k">
+  <h2 class="sec"><span class="n">14</span> Präoperative Pflege</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Alle pflegerischen Tätigkeiten vor einer OP. Ziel: Patient optimal vorbereiten, Risiken und Komplikationen minimieren.</div>
+  
+  <h3 class="sub">Am Vortag</h3>
+  <ul><li><strong>Postoperative Fähigkeiten vorher einüben:</strong> en-bloc-Aufstehen aus dem Bett, Atemübungen, Umgang mit Rollator, Unterarmgehstützen, Beinübungen</li><li><strong>Psychische Begleitung:</strong> Ängste erfragen und ernst nehmen, über OP-Ablauf informieren, Atemübungen oder Entspannungsübungen anbieten, Ruhe und Zeit geben</li><li><strong>Unterlagen vorbereiten:</strong> Einverständniserklärung für OP und Narkose, aktuelle Laborbefunde, Röntgen, EKG, Patientenidentifikationsarmband überprüfen</li></ul>
+
+  <h3 class="sub">Am Tag</h3>
+  <ul><li>Nüchternheit</li><li>Körperpflege: vorabend duschen, bei Bauch-OP Nabel säubern</li><li>Nagellack entfernen wegen Pulsoxymetrie und Zyanosekontrolle</li><li>Make-up entfernen, weil Hautfarbe ein Überwachungsparameter ist</li><li>Schmuck und Piercings entfernen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k15" class="k">
+  <h2 class="sec"><span class="n">15</span> Postoperative Pflege</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Im Aufwachraum</h3>
+  <p>Überwachung bis Vitalfunktionen stabil sind: Bewusstsein, Atmung, Kreislauf, Schmerztherapie.</p>
+
+  <h3 class="sub">Auf Station – NWOS-Schema</h3>
+  <ul><li>Nachblutung</li><li>Wundverband</li><li>Orientierung</li><li>Schmerz</li></ul>
+
+  <h3 class="sub">Weitere Überwachung</h3>
+  <ul><li>VZ überwachen</li><li><strong>Temperatur:</strong> Resorptionsfieber bis 38,5 °C in den ersten 5 Tagen ist normal</li><li><strong>Ausscheidung:</strong> Patient muss innerhalb von 12 Stunden Urin lassen, sonst Harnretention</li><li><strong>DMS-Kontrolle</strong> bei Extremitäten: Durchblutung, Motorik, Sensibilität</li></ul>
+
+  <h3 class="sub">Frühmobilisation</h3>
+  <ul><li>Sobald wie möglich – verhindert Thrombose, Pneumonie, Obstipation</li><li>Kleine Eingriffe, immer zu zweit, Kreislauf überwachen</li><li><strong>En-bloc-Aufstehen:</strong> erst an Bettkante, dann Stand, dann Gehen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k16" class="k">
+  <h2 class="sec"><span class="n">16</span> Wundversorgung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Wundheilungsphasen</h3>
+  <ul><li><strong>Exsudation (1–3):</strong> Wundruhe, sterile Versorgung, Exsudat ableiten</li><li><strong>Granulation (4–21):</strong> feuchtes Wundmilieu erhalten, Wunde schützen</li><li><strong>Epithelisierung (7–21):</strong> Wunde schützen, nicht abrubbeln</li><li><strong>Narbenbildung:</strong> Narbe pflegen und Kompression</li></ul>
+
+  <h3 class="sub">Wundbeurteilung</h3>
+  <ul><li><strong>Wundrand:</strong> geschwollen? gerötet? warm?</li><li><strong>Wundgrund:</strong> Granulation? Nekrose? Fibrinbelag?</li><li><strong>Exsudat:</strong> Farbe? Menge? Geruch?</li><li><strong>Wundgröße:</strong> ausmessen, dokumentieren</li><li><strong>Infektionszeichen:</strong> Rötung, Schwellung, Überwärmung, Eiter, Fieber</li></ul>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Sterile Technik bei VW, Non-Touch-Technik</li><li>Versorgung nach AO</li><li>Schmerzmittel vor VW einplanen</li><li>Dokumentieren: Wundgröße, Aussehen, Exsudat, Datum</li><li>Bei infizierter Wunde: Abstriche, Isolierung prüfen</li><li>Hygiene: Händedesinfektion vor und nach VW, Handschuhe</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k17" class="k">
+  <h2 class="sec"><span class="n">17</span> Sepsis</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Lebensbedrohliche Organdysfunktion durch eine fehlregulierte Immunantwort des Körpers auf eine Infektion.</div>
+  
+  <h3 class="sub">Symptome – qSOFA-Kriterien</h3>
+  <ul><li>Systolischer Blutdruck &lt; 100</li><li>AF &gt; 22</li><li>Bewusstseinsstörung: Unruhe, Verwirrung, GCS &lt; 15</li></ul>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Früherkennung</li><li>VZK regelmäßig und vollständig</li><li>Auf Verhaltensänderungen achten</li><li>Urinausscheidung bilanzieren – Oligurie ist ein Frühzeichen</li><li>Patientenbezogen dokumentieren</li><li>Prophylaxen: Katheterhygiene, Wundversorgung, Pneumonieprophylaxe, Händehygiene, Antibiotika gezielt einsetzen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k18" class="k">
+  <h2 class="sec"><span class="n">18</span> MRSA</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Kann schwere Infektionen auslösen. Übertragung hauptsächlich über die Hände des Personals. Screening bei stationärer Aufnahme.</div>
+  
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Isolierung</li><li>Sanierung</li><li>Bei Verlegung Informierung</li><li>Regelmäßige eigene Hygiene</li></ul>
+
+  <h3 class="sub">5-Tage-Sanierung</h3>
+  <ul><li>Antiseptische Ganzkörperwaschung täglich mit desinfizierender Waschlotion</li><li>Haarwäsche täglich mit antiseptischem Shampoo</li><li>Mundpflege mit antiseptischer Mundspülung</li><li>Nasenbehandlung mit Mupirocin-Nasensalbe (Hauptreservoir!)</li><li>Bettwäsche, Handtücher, Kleidung täglich wechseln</li><li>Pflegeutensilien täglich neu oder Einmalartikel</li><li>Regelmäßige Flächendesinfektion</li><li>Kontrollabstriche nach Abschluss – erst bei mehrfach negativen Abstrichen gilt der Patient als saniert</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k19" class="k">
+  <h2 class="sec"><span class="n">19</span> Apoplex</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Akut beginnendes Auftreten neurologischer Ausfälle als Folge einer Minderversorgung von Hirnzellen mit Sauerstoff und Nährstoffen oder einer direkten Schädigung durch eine Blutung. <strong>Time is Brain.</strong></div>
+  <p>Ischämisch und hämorrhagisch.</p>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Plötzlicher Beginn oder zunehmend innerhalb von Minuten: halbseitige Lähmung vor allem Arm und Gesicht, halbseitige Sensibilitätsstörungen, Sprach- und Sprechstörungen, Sehstörungen, Doppelbilder, Bewusstseinsstörung, Krampfanfälle, Schluckstörungen.</p>
+
+  <h3 class="sub">BE-FAST-Test</h3>
+  <ul><li><strong>B</strong> – Balance</li><li><strong>E</strong> – Eyes</li><li><strong>F</strong> – Face</li><li><strong>A</strong> – Arm</li><li><strong>S</strong> – Speech</li><li><strong>T</strong> – Time</li></ul>
+
+  <h3 class="sub">Pflege in der akuten Phase</h3>
+  <ul><li>VZ-Monitoring, neurologische Beobachtung</li><li>Basale Stimulation</li><li>Kompensation ausgefallener Funktionen</li><li>Erste aktivierende Elemente sobald wie möglich</li><li>Dysphagiemanagement: Schlucktestung, Kostanpassung, Aspiration verhindern</li><li>Prophylaxen: Dekubitus, Pneumonie, Thrombose, Kontraktur</li></ul>
+
+  <h3 class="sub">Weitere Phasen mit Bobath</h3>
+  <p><strong>Ziel:</strong> Aktivität, Körperwahrnehmung und physiologische Bewegungsabläufe wiederherzustellen.</p>
+  <p><strong>Grundprinzipien:</strong></p>
+  <ul><li>Immer auf der betroffenen Seite stehen</li><li>Körperkontakt halten</li><li>Handlungen verbal und durch initiale Berührung ankündigen</li><li>Konstanter Druck, vor allem Hände und Handflächen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k20" class="k">
+  <h2 class="sec"><span class="n">20</span> Schädel-Hirn-Trauma (SHT)</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Verletzung von Schädel und Gehirn durch stumpfe oder spitze Gewalteinwirkung. Häufigste Ursachen: Stürze, Verkehrsunfälle, Sportunfälle.</div>
+
+  <h3 class="sub">Formen</h3>
+  <ul>
+    <li><strong>Leicht (SHT I):</strong> Commotio cerebri (Gehirnerschütterung), GCS 13–15</li>
+    <li><strong>Mittel (SHT II):</strong> Contusio cerebri (Gehirnprellung), GCS 9–12</li>
+    <li><strong>Schwer (SHT III):</strong> Compressio cerebri (Gehirnquetschung), GCS &lt; 9</li>
+  </ul>
+
+  <h3 class="sub">Symptome</h3>
+  <ul>
+    <li>Bewusstseinsstörungen, evtl. mit freiem Intervall (gefährlich!)</li>
+    <li>Retrograde Amnesie (keine Erinnerung an den Unfall)</li>
+    <li>Kopfschmerzen, Schwindel, Übelkeit, Erbrechen</li>
+    <li>Neurologische Ausfälle (Sprache, Sehen, Gefühl, Lähmungen)</li>
+    <li>Pupillendifferenz (Anisokorie), lichtstarre Pupillen</li>
+    <li><strong>Cushing-Triade als Warnzeichen für Einklemmung:</strong> RR-Anstieg + Bradykardie + Atemstörung</li>
+    <li>Liquorrhö aus Nase/Ohr → Hinweis auf Schädelbasisfraktur</li>
+  </ul>
+
+  <h3 class="sub">Pflege</h3>
+  <ul>
+    <li>Engmaschige Vitalzeichen- und Bewusstseinskontrolle (GCS, Pupillenreaktion)</li>
+    <li>Oberkörperhochlagerung 30° (senkt Hirndruck)</li>
+    <li>Reizarme Umgebung</li>
+    <li>Auf Hirndruckzeichen achten: Übelkeit, Nüchternerbrechen (besonders bei Kindern), Sehstörungen, Bewusstseinsveränderungen</li>
+    <li>Auch bei leichtem SHT: mindestens 24 h Überwachung</li>
+    <li>Dokumentation aller Veränderungen</li>
+    <li>Bei offenem SHT: sterile Wundversorgung, Meningitisbeobachtung</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k21" class="k">
+  <h2 class="sec"><span class="n">21</span> Epilepsie</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Chronische Erkrankung mit wiederholten epileptischen Anfällen aufgrund dauerhaft erhöhter Erregungsbereitschaft des Gehirns.</div>
+  <p><strong>Epileptischer Anfall:</strong> vorübergehende Funktionsstörung des Gehirns durch überschießende, synchronisierte elektrische Entladungen der Nervenzellen.</p>
+  
+  <h3 class="sub">Sofortmaßnahmen</h3>
+  <ul><li>Arzt informieren</li><li>Patient nicht alleine lassen</li><li>Zeit messen</li><li>Verletzungen verhindern, Kopf unterpolstern</li><li>Beengende Kleidung lockern</li><li>Patient aus Gefahrenbereichen entfernen</li><li><strong>Anfall beobachten:</strong> Beginn, Art, Bewusstsein, Dauer, Zungenbiss, Einnässen</li></ul>
+
+  <h3 class="sub">Nach dem Anfall</h3>
+  <ul><li>Stabile Seitenlage bei Bewusstlosigkeit</li><li>Mund vorsichtig auswischen bei Erbrechen</li><li>VZK</li><li>Patient in der postiktalen Phase nicht erschrecken</li><li>Auf Verletzungen prüfen</li><li>Arzt informieren und Befund melden</li></ul>
+
+  <h3 class="sub">Dokumentation</h3>
+  <p>Uhrzeit und Dauer, Anfallstyp, Auslöser, Begleitsymptome, postiktale Phase, durchgeführte Maßnahmen.</p>
+
+  <h3 class="sub">Notfall – Status epilepticus</h3>
+  <p>Dauer mehr als 5 Minuten.</p>
+  <ul><li>Notruf sofort</li><li>Atemwege sichern</li><li>i.v.-Zugang für Benzodiazepine vorbereiten</li><li>VZ-Monitoring</li><li>Patient nicht alleine lassen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k22" class="k">
+  <h2 class="sec"><span class="n">22</span> Demenz</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Ein Syndrom mit erworbenem, anhaltendem Verlust kognitiver Fähigkeiten, der die Alltagsbewältigung beeinträchtigt und über das normale Altern hinausgeht.</div>
+  
+  <h3 class="sub">Pflege</h3>
+  <ul><li><strong>Kommunikation:</strong> Validation, Blickkontakt, Körperkontakt, kurze Sätze, geschlossene Fragen, deutlicher Abschied</li><li>ROT (Realitätsorientierungstraining)</li><li>10-Minuten-Aktivierung</li><li>Biographiearbeit / Erinnerungspflege</li><li>Zur Person orientieren</li><li>Bei herausforderndem Verhalten: nicht als Störung bewerten, sondern das Gefühl erkennen und verstehen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k23" class="k">
+  <h2 class="sec"><span class="n">23</span> Depression</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Psychische Erkrankung mit gedrückter Stimmung, Interessenverlust, Freudlosigkeit und vermindertem Antrieb, die mindestens 2 Wochen andauert.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Niedergeschlagenheit, Hoffnungslosigkeit, Gefühl der Wertlosigkeit, Antriebsminderung, Verlangsamung, Morgentief, Suizidgedanken, Schlafstörung, Appetitlosigkeit, Gewichtsverlust, Rücken- und Kopfschmerzen ohne organische Ursache, Libidoverlust, allgemeine Erschöpfung.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li><strong>Beobachtung:</strong> Stimmungslage, Antrieb, Schlaf, Appetit</li><li>Suizidgedanken aktiv und direkt ansprechen</li><li>Medikamentencompliance beobachten</li><li>Ruhige, zugewandte Grundhaltung – nicht aufheitern oder Ratschläge geben, nicht bagatellisieren, Präsenz zeigen</li><li>Kurze Sätze, keine Reizüberflutung</li><li><strong>Aktivierung:</strong> Tagesstruktur anbieten, kleine erreichbare Aktivitäten anbieten, soziale Isolation verhindern</li><li><strong>Sicherheit bei Suizidalität:</strong> engmaschige Beobachtung, Patient nicht alleine lassen, gefährliche Gegenstände entfernen, sofort Arzt informieren</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k24" class="k">
+  <h2 class="sec"><span class="n">24</span> Angststörungen</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Anhaltende, nicht auf bestimmte Situationen bezogene Sorgen und Ängste – Dauerspannung.</div>
+  
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Ruhige, sichere Umgebung schaffen</li><li>Nicht beschämen oder bagatellisieren</li><li><strong>Bei akuter Panikattacke:</strong> ruhig bleiben, bei Patient bleiben, ruhige Atemübungen anleiten, körperliche Ursachen ausschließen lassen</li><li>Vermeidungsverhalten nicht unterstützen</li><li>Angehörige einbeziehen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k25" class="k">
+  <h2 class="sec"><span class="n">25</span> Delir</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Akut einsetzende, organisch bedingte Störung von Bewusstsein, Kognition und Wahrnehmung.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <p>Plötzliche Verwirrtheit, Desorientierung, Unruhe oder Apathie, Halluzinationen, Schlaf-Wach-Umkehr, Gedächtnislücken.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Sofort Arzt informieren, Ursache klären</li><li>Sichere, ruhige Umgebung – Reizminimierung</li><li>Orientierung geben: Datum, Ort, vertraute Personen</li><li>Vertraute Bezugspersonen einbeziehen</li><li>Flüssigkeit und Ernährung sicherstellen</li><li>Stürze verhindern – Patient nicht alleine lassen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k26" class="k">
+  <h2 class="sec"><span class="n">26</span> Tumorerkrankung</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Unkontrollierte, autonome Zellvermehrung.</div>
+  
+  <h3 class="sub">Symptome – B-Symptomatik</h3>
+  <ul><li>Fieber ohne erkennbare Ursache</li><li>Nachtschweiß</li><li>Gewichtsverlust &gt; 10 % in 6 Monaten</li></ul>
+  <p><strong>Weitere Zeichen:</strong> anhaltende Abgeschlagenheit, Fatigue, Anämiezeichen, Blutungsneigung, schmerzlose Lymphknotenschwellungen.</p>
+
+  <h3 class="sub">TNM-Klassifikation</h3>
+  <p>T – Tumorgröße, N – Lymphknotenbefall, M – Fernmetastasen.</p>
+
+  <h3 class="sub">Therapie</h3>
+  <p>Operativ, Chemo, Strahlen, Stammzelltransplantation, Immuntherapie, Hormontherapie.</p>
+
+  <h3 class="sub">Pflege bei Chemotherapie</h3>
+  <ul><li>Nebenwirkungen erkennen und handeln</li><li><strong>Übelkeit:</strong> Antiemetika nach AO, kleine Mahlzeiten, kühle Getränke, Gerüche meiden</li><li><strong>Mukositis:</strong> regelmäßige Mundpflege, weiche Zahnbürste, Spüllösung, keine scharfen/sauren Speisen</li><li><strong>Haarausfall:</strong> empathisch ansprechen, Perückenberatung, Würde wahren</li><li><strong>Knochenmarksuppression:</strong> Infektzeichen beobachten, Blutungszeichen erkennen, Hygienestandards einhalten</li><li><strong>Fatigue:</strong> Aktivitäten planen, Ruhephasen, nicht überfordern</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k27" class="k">
+  <h2 class="sec"><span class="n">27</span> Tumorschmerz &amp; WHO-Schema</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <table><thead><tr><th>Stufe</th><th>Wirkstoffe</th></tr></thead><tbody>
+    <tr><td><strong>1 – Leicht</strong><br/>Nicht-Opioide</td><td>Paracetamol, Ibuprofen, Metamizol</td></tr>
+    <tr><td><strong>2 – Mittel</strong><br/>Nicht-Opioide + schwache Opioide</td><td>Tramadol, Tilidin</td></tr>
+    <tr><td><strong>3 – Stark</strong><br/>Nicht-Opioide + starke Opioide</td><td>Morphin, Fentanyl, Oxycodon</td></tr>
+  </tbody></table>
+  <p>Auf jeder Stufe sind Ergänzungen möglich wie <strong>Koanalgetika</strong> (Antidepressiva, Antikonvulsiva, Glukokortikoide).</p>
+  
+  <h3 class="sub">Grundregeln bei Schmerztherapie</h3>
+  <ul><li>Medikamente nach festem Zeitschema verabreichen</li><li>Wirkung und Nebenwirkung beobachten, dokumentieren</li><li>Opioid-Nebenwirkungen aktiv vorbeugen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k28" class="k">
+  <h2 class="sec"><span class="n">28</span> Suchterkrankungen</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Eine Abhängigkeit liegt vor, wenn innerhalb des letzten Jahres 3 oder mehr der folgenden 6 Kriterien erfüllt werden:</div>
+  <ul><li><strong>Craving:</strong> starkes, überwältigendes Verlangen nach der Substanz</li><li><strong>Verminderte Kontrolle:</strong> Schwierigkeit, den Konsum zu begrenzen</li><li><strong>Eingeengtes Verhaltensmuster:</strong> Substanzkonsum dominiert den Alltag</li><li><strong>Körperliches Entzugssyndrom:</strong> Entzugssymptome bei Abstinenz</li><li><strong>Toleranzentwicklung:</strong> steigende Mengen nötig für den gleichen Effekt</li><li><strong>Anhaltender Konsum trotz Schaden:</strong> trotz bekannter negativer Folgen</li></ul>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k29" class="k">
+  <h2 class="sec"><span class="n">29</span> Alkoholabhängigkeit</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Substanzgebundene Abhängigkeit von Alkoholkonsum.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <ul><li><strong>Körperlich:</strong> Verfall, aufgedunsenes Gesicht, Tremor, Entzugssymptome</li><li><strong>Psychisch:</strong> Gedankenkreisen um Alkohol, Gereiztheit, depressive Verstimmung</li></ul>
+  <p><strong>Diagnostik:</strong> CAGE-Test.</p>
+
+  <h3 class="sub">Entzugssymptome</h3>
+  <p>Beginnen ca. 4 bis 12 Stunden nach letztem Konsum, Maximum nach 24 bis 48 Stunden.</p>
+  <ul><li><strong>Psychisch:</strong> Angstzustand, Aggressivität, depressive Verstimmung, Halluzination, Orientierungsstörung, Suizidgedanken</li><li><strong>Somatisch:</strong> Tremor, Schwitzen, epileptische Anfälle, Herz-Kreislauf-Probleme, Schlafstörungen, Übelkeit, Delir</li></ul>
+
+  <h3 class="sub">Pflege im Entzug</h3>
+  <ul><li>Engmaschige VZK alle 2–4 Stunden zur Früherkennung des Delirs</li><li>Assessment regelmäßig erheben und dokumentieren</li><li>Ruhige, reizarme Umgebung schaffen</li><li>Suizidgedanken aktiv ansprechen</li><li>Sturz- und Schutzmaßnahmen einleiten</li><li>Ausreichend Flüssigkeit und Thiaminsubstitution sicherstellen</li><li>Verständnisvolle, respektierende, hilfsbereite aber konsequente Kommunikation</li><li>Keine Verantwortung für den Patienten übernehmen</li><li>Nicht appellieren oder abschrecken</li><li>Craving ernst nehmen, Patient nicht zurückweisen</li></ul>
+
+  <h3 class="sub">Craving-Management</h3>
+  <ul><li>Ablenkung durch Bewegung, Beschäftigung, Hobbys</li><li>Gespräche mit Personal oder Vertrauensperson</li><li>Gespräche über Konsumsituation vermeiden</li></ul>
+
+  <h3 class="sub">Nach Entgiftung</h3>
+  <ul><li>Tagesstruktur etablieren und einhalten</li><li>Selbsthilfegruppen vermitteln</li><li>Rückfallrisikofaktoren benennen</li><li>Notfallplan erstellen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k30" class="k">
+  <h2 class="sec"><span class="n">30</span> Essstörungen</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Anorexia nervosa (Magersucht)</h3>
+  <div class="def">Selbst herbeigeführter Gewichtsverlust durch verschobene Körperwahrnehmung und massive Angst vor Gewichtszunahme – führt zu Unterernährung unterschiedlicher Schweregrade.</div>
+  <p><strong>Symptome:</strong> irrationale Angst vor Dickwerden, Körperschemastörung (fühlen sich in extremem Untergewicht trotzdem zu dick), restriktives Essverhalten, Leistungsfixierung, hoher Ehrgeiz, meist keine Krankheitseinsicht. BMI &lt; 17,5 bzw. &lt; 18,5.</p>
+
+  <h3 class="sub">Bulimia nervosa (Ess-Brech-Sucht)</h3>
+  <div class="def">Wiederkehrende Heißhungerattacken mit anschließenden Gegenmaßnahmen aus Angst vor Gewichtszunahme.</div>
+  <p><strong>Symptome:</strong> heimliche Essattacken → Erbrechen → Schuldgefühle → erneute Attacken.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li><strong>Kommunikation:</strong> kein Moralisieren, kein Appellieren, vertrauensvolle Beziehung aufbauen, Autonomie respektieren, keine Kommentare über Aussehen oder Gewicht, motivierende Gesprächsführung, Essen nicht zum Machtkampf machen</li><li><strong>Beobachten und dokumentieren:</strong> Gewicht regelmäßig, Essverhalten auch nach der Mahlzeit, körperlicher Zustand, Elektrolyte, Herzrhythmus, Haut, Haare</li><li>Stimmungslage und Suizidgedanken beobachten</li><li>Medikamentenmissbrauch im Blick behalten</li><li>Strukturierte Mahlzeiten anbieten, Mahlzeiten begleiten, aber nicht im Sinne von Kontrolle</li><li>Nach der Mahlzeit kurz beim Patienten bleiben</li><li>Angehörige einbeziehen und aufklären</li><li>Selbsthilfegruppen vermitteln</li><li>Interdisziplinäre Teamarbeit</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k31" class="k">
+  <h2 class="sec"><span class="n">31</span> Mukoviszidose</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Autosomal-rezessiv vererbte Funktionsstörung der exokrinen Drüsen durch CFTR-Gendefekt. Es führt zu zähem, viskösem Schleim, der die Ausführungsgänge verstopft und zu chronischer Schädigung vor allem der Lunge, des Pankreas und der Gallenwege führt.</div>
+  
+  <h3 class="sub">Symptome</h3>
+  <ul><li><strong>Lunge:</strong> chronischer Husten mit zähem Auswurf, wiederkehrende Bronchitiden/Pneumonien, Atemnot, Trommelschlegelfinger + Uhrglasnägel</li><li><strong>Pankreas:</strong> exokrine Pankreasinsuffizienz – Fettstühle, Blähungen, Gedeihstörung, Kleinwuchs</li><li><strong>Haut/Schweiß:</strong> erhöhter Salzgehalt im Schweiß</li></ul>
+
+  <h3 class="sub">Therapie / Pflege</h3>
+  <ul><li><strong>Atemphysiotherapie</strong></li><li><strong>Drainagelagerung:</strong> Rücken-/Seiten-/Bauchlage mit leicht tief liegendem Kopf, 3–4 Mal täglich, 10–20 Minuten, nie direkt nach dem Essen</li><li><strong>Abklopfen:</strong> Rücken mit hohler Hand aus dem Handgelenk abklopfen</li><li><strong>Autogene Drainage:</strong> langsam tief einatmen → Luft halten → aktiv ausatmen</li><li><strong>Atemhilfsmittel:</strong> Flutter, Triflow, Luftballon aufblasen</li><li>Inhalation mit Sekretolytika vor der Drainagelagerung</li><li>Hoher Kalorienbedarf, daher energiereiche Kost</li><li>Bauchspeicheldrüsenenzyme supplementieren</li><li>Fettlösliche Vitamine A, D, E, K zuführen</li><li>Viel trinken</li><li>Bei Hitze oder Fieber Kochsalz zuführen</li><li>Impfungen, Infektionskontakte vermeiden</li><li>BZ überwachen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k32" class="k">
+  <h2 class="sec"><span class="n">32</span> ADHS</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <p><em>Attention Deficit Hyperactivity Disorder</em></p>
+  
+  <h3 class="sub">Leitsymptome</h3>
+  <ol class="steps"><li><strong>Unaufmerksamkeit:</strong> leichte Ablenkbarkeit, Konzentrationsschwierigkeiten</li><li><strong>Impulsivität:</strong> vorschnelles Handeln, Ungeduld</li><li><strong>Hyperaktivität:</strong> motorische Unruhe</li></ol>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Strukturierter Tagesablauf</li><li>Reizüberflutung reduzieren, reizarme Umgebung schaffen</li><li>Klare, einfache Anweisungen</li><li>Positive Verstärkung statt Kritik</li><li>Eltern aufklären und entlasten</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k33" class="k">
+  <h2 class="sec"><span class="n">33</span> Autismus</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  
+  <h3 class="sub">Leitsymptome</h3>
+  <ol class="steps"><li><strong>Eingeschränkte soziale Interaktion:</strong> wenig Blickkontakt, mangelnde Empathie</li><li><strong>Kommunikation eingeschränkt:</strong> Sprachentwicklung verzögert oder auffällig</li><li><strong>Stereotypes Verhalten:</strong> Rituale, eingeschränkte Interessen, Veränderungsangst</li></ol>
+
+  <h3 class="sub">Pflege</h3>
+  <ul><li>Rituale respektieren und bewahren</li><li>Reizarme Umgebung schaffen</li><li>Klare, direkte Kommunikation</li><li>Veränderungen ankündigen und vorbereiten</li><li>Familie aktiv einbeziehen</li></ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k34" class="k">
+  <h2 class="sec"><span class="n">34</span> Trisomie 21 (Down-Syndrom)</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Menschen mit Trisomie 21 haben ein zusätzliches Chromosom 21 (3-fach statt 2-fach vorhanden). Die Folgen sind körperliche Veränderungen und eine psychomotorische Retardierung unterschiedlichen Ausmaßes. <em>Synonym: Down-Syndrom.</em></div>
+  
+  <h3 class="sub">Symptome / Merkmale</h3>
+  <ul>
+    <li>Auffälligkeiten im Gesicht: weit auseinanderstehende Augen, breite/flache Nasenwurzel, vergrößerte Zunge</li>
+    <li>Vierfingerfurche (durchgehende Handfurche), Sandalenlücke (vergrößerter Abstand 1./2. Zehe)</li>
+    <li>Muskelschwäche (Hypotonie), besonders im Säuglingsalter</li>
+    <li>Psychomotorische Retardierung (durchschnittlicher IQ ca. 50) – Lesen und Schreiben werden meist erlernt</li>
+  </ul>
+
+  <h3 class="sub">Begleiterkrankungen</h3>
+  <ul>
+    <li>Angeborener Herzfehler bei ca. 50% (häufigst: AV-Septumdefekt)</li>
+    <li>Duodenalstenose, Analatresie, Morbus Hirschsprung</li>
+    <li>Erhöhtes Risiko für akute Leukämien, Zöliakie, Epilepsie, Schallleitungsschwerhörigkeit</li>
+    <li>Ab dem 40. Lebensjahr: meist Entwicklung einer Alzheimer-Demenz</li>
+  </ul>
+
+  <h3 class="sub">Diagnostik</h3>
+  <p>Pränatal über Chromosomenanalyse (Chorionzottenbiopsie, Amniozentese) möglich. Bei Neugeborenen gezielte Suche nach Fehlbildungen.</p>
+
+  <h3 class="sub">Pflege</h3>
+  <ul>
+    <li>Gute Beobachtung: Beschwerden (z.B. Schmerzen) zeigen sich oft durch verändertes Verhalten statt verbaler Äußerung</li>
+    <li>Individuelle Pflegeplanung: Vorlieben, Abneigungen und Ressourcen berücksichtigen, Angehörige einbeziehen</li>
+    <li>Bezugspflege ermöglichen – vermittelt Sicherheit</li>
+    <li>Nähe und Distanz individuell abschätzen, Grenzen setzen</li>
+    <li>Strukturierter Tagesablauf – gibt Sicherheit</li>
+    <li>Umfassende Entwicklungsförderung: Physio-, Ergo- und Sprachtherapie</li>
+    <li>Fokus auf besondere Fähigkeiten statt auf intellektuelle Defizite</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k35" class="k">
+  <h2 class="sec"><span class="n">35</span> Neurodermitis (Atopisches Ekzem)</h2>
+  <button class="recall-toggle" data-recall aria-label="Selbsttest umschalten">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <span class="lbl-off">Selbsttest</span><span class="lbl-on">Beenden</span>
+  </button>
+  <div class="def">Chronisch-entzündliche, schubweise verlaufende Hauterkrankung als Folge einer anlagebedingten Überempfindlichkeit der Haut. Synonyme: atopisches Ekzem, atopische Dermatitis.</div>
+
+  <h3 class="sub">Atopischer Formenkreis</h3>
+  <p>Genetische Veranlagung zu drei Erkrankungen, die einzeln oder gemeinsam auftreten: <strong>Neurodermitis · Asthma bronchiale · Heuschnupfen.</strong></p>
+
+  <h3 class="sub">Symptome</h3>
+  <ul>
+    <li>Quälender Juckreiz, trockene Haut, Schuppen</li>
+    <li>Säuglinge: Milchschorf im Gesicht und auf dem Kopf</li>
+    <li>Kinder/Jugendliche: Beugeekzeme (Ellenbeugen, Kniekehlen)</li>
+    <li><strong>Dennie-Morgan-Falte:</strong> doppelte Lidfalte unter dem Auge als atopisches Zeichen</li>
+    <li><strong>Juck-Kratz-Zyklus:</strong> Juckreiz → Kratzen → Hautverletzung → Entzündung → stärkerer Juckreiz</li>
+  </ul>
+
+  <h3 class="sub">Komplikationen</h3>
+  <ul>
+    <li>Bakterielle Superinfektionen durch Kratzwunden</li>
+    <li>Sepsisgefahr bei großflächigen Infektionen, v.a. bei Säuglingen</li>
+    <li>Die Haut als größtes Organ verliert Barrierefunktion → Flüssigkeitsverlust, Infektionseingangspforte</li>
+  </ul>
+
+  <h3 class="sub">Therapie</h3>
+  <ul>
+    <li>Rückfettende Cremes, Triggerfaktoren meiden</li>
+    <li>Topische Glukokortikoide (Kortison) im Schub – hemmen Entzündung und Histaminfreisetzung</li>
+    <li><strong>Achtung Cushing-Syndrom</strong> bei langfristiger systemischer Kortisontherapie: Vollmondgesicht, Stammfettsucht, Hautatrophie, Osteoporose, Diabetes</li>
+  </ul>
+
+  <h3 class="sub">Pflege</h3>
+  <ul>
+    <li>Hautpflege: rückfettende Cremes, lauwarmes Wasser, weiche Baumwollkleidung</li>
+    <li>Fingernägel kurz halten, nachts ggf. Baumwollhandschuhe (v.a. Kinder)</li>
+    <li>Niedrige Schlafzimmertemperatur, dünne Bettdecke (Wärme verstärkt Juckreiz)</li>
+    <li>Schulung von Triggerfaktoren und Hautpflege</li>
+    <li>Bei Superinfektion: Hygiene, Wundbeobachtung, Sepsiszeichen früh erkennen</li>
+  </ul>
+
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+<section id="k36" class="k">
+  <h2 class="sec"><span class="n">36</span> Entwicklungsmeilensteine</h2>
+  <table><thead><tr><th>Alter</th><th>Motorik</th><th>Sprache</th><th>Sozial</th></tr></thead><tbody>
+    <tr><td>3 Monate</td><td>Kopfhalten</td><td>Lautäußerungen</td><td>Lächeln</td></tr>
+    <tr><td>6 Monate</td><td>Drehen, Sitzen mit Stütze</td><td>Lallen</td><td>Fremde erkennen</td></tr>
+    <tr><td>12 Monate</td><td>Frei stehen, erste Schritte</td><td>Mama / Papa</td><td>Winken</td></tr>
+    <tr><td>2 Jahre</td><td>Treppe</td><td>2-Wort-Sätze</td><td>Parallelspiel</td></tr>
+    <tr><td>3 Jahre</td><td>Dreirad fahren</td><td>Fragen stellen</td><td>Rollenspiel</td></tr>
+  </tbody></table>
+  <a class="back" href="#top">↑ nach oben</a>
+</section>
+
+</div><!-- /panel-krankheit -->
+
+<footer>Pflege Revision · Saarland 2026 · Persönliche Lernzusammenfassung</footer>
+</div>
+
+<script>
+(function(){
+  const tabs = document.querySelector('.tabs');
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+  const progressFill = document.getElementById('progressFill');
+  const rail = document.getElementById('rail');
+  const toTopBtn = document.getElementById('toTop');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function currentPanel(){
+    return document.querySelector('.panel.active') || panels[0];
+  }
+
+  /* ---------- Tab switching (with native View Transition when available) ---------- */
+  function doSwitch(tab, scroll){
+    if(tabs) tabs.setAttribute('data-active', tab);
+    buttons.forEach(b => {
+      const on = b.dataset.tab === tab;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on);
+    });
+    panels.forEach(p => {
+      const target = 'panel-' + tab;
+      if(p.id === target){
+        p.classList.remove('active');
+        void p.offsetWidth;
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    });
+    if(scroll !== false){
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+    buildRail();
+    observeSections();
+    updateProgress();
+  }
+
+  function activate(tab, scroll){
+    if(!reduceMotion && document.startViewTransition){
+      document.startViewTransition(() => doSwitch(tab, scroll));
+    } else {
+      doSwitch(tab, scroll);
+    }
+  }
+
+  buttons.forEach(b => {
+    b.addEventListener('click', () => activate(b.dataset.tab));
+  });
+
+  // Cross-panel TOC clicks switch tab then scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      if(!id || id === 'top') return;
+      const target = document.getElementById(id);
+      if(!target) return;
+      const panel = target.closest('.panel');
+      if(panel && !panel.classList.contains('active')){
+        e.preventDefault();
+        const tab = panel.id.replace('panel-','');
+        activate(tab, false);
+        setTimeout(() => {
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }, 90);
+      }
+    });
+  });
+
+  /* ---------- Reading progress bar ---------- */
+  function updateProgress(){
+    const panel = currentPanel();
+    if(!panel || !progressFill) return;
+    const docTop = panel.getBoundingClientRect().top + window.scrollY;
+    const total = panel.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? Math.min(100, Math.max(0, ((window.scrollY - docTop) / total) * 100)) : 0;
+    progressFill.style.width = pct + '%';
+    progressFill.classList.toggle('amber', panel.id === 'panel-krankheit');
+  }
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  window.addEventListener('resize', updateProgress);
+
+  /* ---------- Section reveal on scroll ---------- */
+  let revealObserver;
+  function observeReveal(){
+    if(revealObserver) revealObserver.disconnect();
+    if(reduceMotion){
+      document.querySelectorAll('section').forEach(s => s.classList.add('revealed'));
+      return;
+    }
+    revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.01});
+    document.querySelectorAll('section:not(.revealed)').forEach(s => revealObserver.observe(s));
+  }
+  observeReveal();
+
+  /* ---------- Spiral phases: staggered reveal ---------- */
+  function observeSpiral(){
+    if(reduceMotion){
+      document.querySelectorAll('.spiral-phase').forEach(p => p.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const phases = [...entry.target.parentElement.querySelectorAll('.spiral-phase')];
+          const idx = phases.indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('in'), idx * 90);
+          io.unobserve(entry.target);
+        }
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:0.1});
+    document.querySelectorAll('.spiral-phase').forEach(p => io.observe(p));
+  }
+  observeSpiral();
+
+  let sectionObserver;
+  function buildRail(){
+    if(!rail) return;
+    const panel = currentPanel();
+    if(!panel) return;
+    rail.setAttribute('data-rail-theme', panel.id === 'panel-krankheit' ? 'krankheit' : 'theorie');
+    rail.innerHTML = '';
+    const sections = panel.querySelectorAll('section[id]');
+    sections.forEach(sec => {
+      const titleEl = sec.querySelector('h2.sec');
+      let title = sec.id;
+      if(titleEl){
+        const clone = titleEl.cloneNode(true);
+        const n = clone.querySelector('.n');
+        if(n) n.remove();
+        title = clone.textContent.trim();
+      }
+      const dot = document.createElement('div');
+      dot.className = 'rail-dot';
+      dot.dataset.target = sec.id;
+      const tip = document.createElement('span');
+      tip.className = 'rail-tip';
+      tip.textContent = title;
+      dot.appendChild(tip);
+      dot.addEventListener('click', () => {
+        sec.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+      });
+      rail.appendChild(dot);
+    });
+  }
+
+  function observeSections(){
+    if(sectionObserver) sectionObserver.disconnect();
+    const panel = currentPanel();
+    if(!panel || !rail) return;
+    const sections = panel.querySelectorAll('section[id]');
+    if(!sections.length) return;
+    sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const dot = rail.querySelector('.rail-dot[data-target="' + entry.target.id + '"]');
+        if(!dot) return;
+        if(entry.isIntersecting){
+          rail.querySelectorAll('.rail-dot.active').forEach(d => d.classList.remove('active'));
+          dot.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+    sections.forEach(s => sectionObserver.observe(s));
+  }
+
+  /* ---------- Floating scroll-to-top ---------- */
+  function updateToTop(){
+    if(!toTopBtn) return;
+    toTopBtn.classList.toggle('visible', window.scrollY > 480);
+  }
+  window.addEventListener('scroll', updateToTop, {passive:true});
+  if(toTopBtn){
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({top:0, behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+  }
+
+  /* ---------- Self-test mode (active recall) ---------- */
+  document.querySelectorAll('[data-recall]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sec = btn.closest('section');
+      if(!sec) return;
+      sec.classList.toggle('recall-active');
+      // reset reveals when toggling off
+      if(!sec.classList.contains('recall-active')){
+        sec.querySelectorAll('.revealed').forEach(el => el.classList.remove('revealed'));
+      }
+    });
+  });
+  // reveal a hidden list on tap (event delegation)
+  document.querySelectorAll('section').forEach(sec => {
+    sec.addEventListener('click', (e) => {
+      if(!sec.classList.contains('recall-active')) return;
+      const list = e.target.closest('ul, ol.steps');
+      if(list && sec.contains(list)){
+        list.classList.add('revealed');
+      }
+    });
+  });
+
+  /* ---------- Search ---------- */
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  const searchBox = document.getElementById('searchBox');
+  const searchClear = document.getElementById('searchClear');
+
+  // build index from TOC links
+  const searchIndex = [];
+  document.querySelectorAll('.toc a[href^="#"]').forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    const part = target && target.closest('#panel-krankheit') ? 'krank' : 'theorie';
+    searchIndex.push({id, title: a.textContent.trim(), part});
+  });
+
+  function runSearch(q){
+    q = q.trim().toLowerCase();
+    if(!q){
+      searchResults.classList.remove('show');
+      searchResults.innerHTML = '';
+      searchBox.classList.remove('has-text');
+      return;
+    }
+    searchBox.classList.add('has-text');
+    const hits = searchIndex.filter(item => item.title.toLowerCase().includes(q));
+    if(!hits.length){
+      searchResults.innerHTML = '<div class="sr-empty">Kein Thema gefunden.</div>';
+      searchResults.classList.add('show');
+      return;
+    }
+    searchResults.innerHTML = hits.map(h =>
+      `<a href="#${h.id}" data-sr-part="${h.part}"><span class="sr-part ${h.part}">${h.part==='krank'?'Krankheit':'Theorie'}</span>${h.title}</a>`
+    ).join('');
+    searchResults.classList.add('show');
+  }
+
+  if(searchInput){
+    searchInput.addEventListener('input', () => runSearch(searchInput.value));
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      runSearch('');
+      searchInput.focus();
+    });
+    // clicking a result: switch to correct panel, scroll, close
+    searchResults.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if(!a) return;
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const part = a.dataset.srPart === 'krank' ? 'krankheit' : 'theorie';
+      const cur = currentPanel();
+      const needSwitch = cur && cur.id !== 'panel-' + part;
+      if(needSwitch){
+        activate(part, false);
+      }
+      setTimeout(() => {
+        const target = document.getElementById(id);
+        if(target) target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+      }, needSwitch ? 120 : 0);
+      searchResults.classList.remove('show');
+      searchInput.value = '';
+      searchBox.classList.remove('has-text');
+    });
+  }
+
+  /* ---------- Init ---------- */
+  buildRail();
+  observeSections();
+  updateProgress();
+  updateToTop();
+
+  // Honor hash on load
+  if(location.hash){
+    const id = location.hash.slice(1);
+    const target = document.getElementById(id);
+    if(target){
+      const panel = target.closest('.panel');
+      if(panel) activate(panel.id.replace('panel-',''), false);
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
